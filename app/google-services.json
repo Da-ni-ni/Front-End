@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "133565645595",
+    "project_id": "mainoperexceptemotion",
+    "storage_bucket": "mainoperexceptemotion.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133565645595:android:5bb089757eadfecff449be",
+        "android_client_info": {
+          "package_name": "com.example.main_oper_except_emotion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfCXCPKTKlFV_PnKVxagUf5Kv1Av9Tf3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

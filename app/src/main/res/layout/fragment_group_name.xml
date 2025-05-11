@@ -1,0 +1,76 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/back_paper"
+    tools:context="main_oper_except_emotion.ui.name.GroupNameFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_Emotion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:title="가족 그룹명 변경"
+        app:navigationIcon="@drawable/ic_left_arrow"
+        app:titleTextAppearance="@style/Toolbar_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_top_log"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/Top_Log"
+        android:text="가족명 설정"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Emotion"/>
+
+    <TextView
+        android:id="@+id/tv_gray_mini_logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="우리 가족의 별명을 지어주세요!\n (최대 8글자 이내) \n언제든 변경 가능합니다."
+        style="@style/Top_detail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_top_log"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"/>
+
+    <EditText
+        android:id="@+id/et_new_nickname"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:padding="12dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:hint="새 이름"
+        android:textSize="18dp"
+        android:importantForAutofill="no"
+        android:textAppearance="@style/Edit_Title"
+        android:background="@drawable/selector_invite_link_edit_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_gray_mini_logo"/>
+
+    <Button
+        android:id="@+id/bt_next"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/button_background_intro"
+        android:text="확 인"
+        style="@style/Button_Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_new_nickname"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

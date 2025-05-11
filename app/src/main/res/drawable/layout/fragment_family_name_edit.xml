@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="24dp">
+
+    <!-- 감정 캐릭터 이미지 -->
+    <ImageView
+        android:id="@+id/ivEmotion"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/ic_joy"
+        android:scaleType="fitCenter"
+        android:contentDescription="감정 캐릭터 이미지" />
+
+    <!-- 현재 이름 표시 -->
+    <TextView
+        android:id="@+id/tvCurrentName"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이름"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
+    <!-- 새 이름 입력 필드 -->
+    <EditText
+        android:id="@+id/etNewName"
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="새 이름을 입력하세요"
+        android:padding="12dp"
+        android:background="@drawable/selector_invite_link_edit_text"
+        android:textSize="16sp"
+        android:inputType="textPersonName" />
+
+    <!-- 저장 버튼 -->
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="저장하기"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

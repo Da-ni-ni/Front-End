@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_paper"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 툴바 -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_Emotion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:titleTextAppearance="@style/Toolbar_title" />
+
+        <!-- 제목 -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="우리 가족, 오늘의 감정"
+            style="@style/Top_Log"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvLastUpdated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2025.04.01 13:00 기준 갱신"
+            style="@style/Top_detail"
+            android:layout_gravity="end"
+            android:layout_marginTop="24dp" />
+
+
+                <GridLayout
+                    android:id="@+id/glEmotionGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alignmentMode="alignMargins"
+                    android:background="@drawable/back_paper"
+                    android:columnCount="2"
+                    android:columnOrderPreserved="false"
+                    android:rowCount="5">
+
+                    <!-- person1 ~ person10 -->
+                    <LinearLayout
+                        android:id="@+id/person1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/ivEmotionSticker1"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp" />
+
+                        <TextView
+                            android:id="@+id/tvPersonName1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="나"
+                            style="@style/Very_small_logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/person2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/ivEmotionSticker2"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp" />
+
+                        <TextView
+                            android:id="@+id/tvPersonName2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="-"
+                            style="@style/Very_small_logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/person3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/ivEmotionSticker3"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp" />
+
+                        <TextView
+                            android:id="@+id/tvPersonName3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="-"
+                            style="@style/Very_small_logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/person4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/ivEmotionSticker4"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp" />
+
+                        <TextView
+                            android:id="@+id/tvPersonName4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="-"
+                            style="@style/Very_small_logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/person5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/ivEmotionSticker5"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp" />
+
+                        <TextView
+                            android:id="@+id/tvPersonName5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="-"
+                            style="@style/Very_small_logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/person6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/ivEmotionSticker6"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp" />
+
+                        <TextView
+                            android:id="@+id/tvPersonName6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="-"
+                            style="@style/Very_small_logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/person7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/ivEmotionSticker7"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp" />
+
+                        <TextView
+                            android:id="@+id/tvPersonName7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="-"
+                            style="@style/Very_small_logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/person8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/ivEmotionSticker8"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp" />
+
+                        <TextView
+                            android:id="@+id/tvPersonName8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="-"
+                            style="@style/Very_small_logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/person9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/ivEmotionSticker9"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp" />
+
+                        <TextView
+                            android:id="@+id/tvPersonName9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="-"
+                            style="@style/Very_small_logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/person10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/ivEmotionSticker10"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp" />
+
+                        <TextView
+                            android:id="@+id/tvPersonName10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="-"
+                            style="@style/Very_small_logo" />
+                    </LinearLayout>
+
+                </GridLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+

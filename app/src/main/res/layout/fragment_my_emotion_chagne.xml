@@ -1,0 +1,193 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/back_paper"
+    tools:context="main_oper_except_emotion.ui.emotion.MyEmotionChangeFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_Emotion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:title="감정 수정"
+        app:navigationIcon="@drawable/ic_left_arrow"
+        app:titleTextAppearance="@style/Toolbar_title"
+        tools:layout_editor_absoluteY="-7dp" />
+
+    <ImageView
+    android:id="@+id/currentEmotion"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:src="@drawable/ic_joy"
+    app:layout_constraintBottom_toTopOf="@id/gridEmotion"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    />
+
+    <TextView
+        android:id="@+id/textViewUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="나"
+        android:fontFamily="@font/gowundodum"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentEmotion"/>
+
+
+
+    <!-- 감정 그리드 -->
+    <GridLayout
+        android:id="@+id/gridEmotion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:useDefaultMargins="true"
+        android:layout_marginTop="150dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_Emotion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 감정 아이템 1: 기쁨 -->
+        <LinearLayout
+            android:id="@+id/emotionJoy"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_joy" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기쁨이"
+                style="@style/Very_small_logo"  />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emotionSad"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_sad" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="슬픔이"
+                style="@style/Very_small_logo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emotionTired"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="155dp"
+                android:layout_height="155dp"
+                android:src="@drawable/ic_tired" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="피곤이"
+                style="@style/Very_small_logo"  />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emotionMissed"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="145dp"
+                android:layout_height="145dp"
+                android:src="@drawable/ic_missed" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="보고픔이"
+                style="@style/Very_small_logo"  />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emotionAngry"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <ImageView
+
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:src="@drawable/ic_angry" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="버럭이"
+                style="@style/Very_small_logo"  />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emotionComfort"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="145dp"
+                android:src="@drawable/ic_comfort" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="편안이"
+                style="@style/Very_small_logo"  />
+
+        </LinearLayout>
+        <!-- 감정 2~6개도 동일하게 emotionSad, emotionTired 등 추가 -->
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

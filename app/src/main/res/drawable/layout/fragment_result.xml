@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.ResultFragment">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_Invite1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:title="친밀도 테스트 결과"
+        app:titleTextAppearance="@style/Toolbar_title"
+        tools:layout_editor_absoluteY="-7dp" />
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card_area"
+            android:layout_width="330dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/background_green500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_Invite1">
+
+            <TextView
+                android:id="@+id/closeness_result_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="가족 친밀도 지수"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toStartOf="@+id/card_area"
+                app:layout_constraintTop_toTopOf="@+id/card_area"
+                style="@style/Closeness_Result_title"/>
+
+            <TextView
+                android:id="@+id/tv_group_score"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/card_area"
+                app:layout_constraintTop_toBottomOf="@id/closeness_result_title"
+                android:layout_marginStart="30dp"
+                android:text="--점"
+                style="@style/Group_Score"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mini_card_area"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="70dp"
+                android:background="@drawable/background_green300"
+                app:layout_constraintTop_toTopOf="@+id/card_area"
+                app:layout_constraintEnd_toEndOf="@+id/card_area">
+
+                <TextView
+                    android:id="@+id/personal_score_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="개인 점수"
+                    android:paddingTop="10dp"
+                    app:layout_constraintStart_toStartOf="@id/mini_card_area"
+                    app:layout_constraintEnd_toEndOf="@id/mini_card_area"
+                    app:layout_constraintTop_toTopOf="@id/mini_card_area" />
+
+                <TextView
+                    android:id="@+id/tv_personal_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--점"
+                    style="@style/Personal_Score"
+                    app:layout_constraintStart_toStartOf="@id/mini_card_area"
+                    app:layout_constraintEnd_toEndOf="@id/mini_card_area"
+                    app:layout_constraintTop_toBottomOf="@id/personal_score_logo"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/bt_home_next"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:text="확인"
+        android:enabled="true"
+        android:background="@drawable/selector_check_button"
+        style="@style/Button_Title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

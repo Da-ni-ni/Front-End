@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_paper"
+    android:fillViewport="true">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_diary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:navigationIcon="@drawable/ic_left_arrow"
+        app:title="일기 작성"
+        app:titleTextAppearance="@style/Toolbar_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/bt_writeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="완료"
+            android:textSize="22sp"
+            android:textColor="@color/gray2"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_button"
+            android:fontFamily="@font/gowundodum"
+            android:layout_gravity="end|center_vertical"
+            android:paddingEnd="16dp"/>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <View
+        android:id="@+id/separator1"
+        android:layout_width="380dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/gray1"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_diary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/et_write"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_text_background_write"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint=" 내용을 입력해주세요"
+        android:gravity="start|top"
+        android:textAppearance="@style/Answer_main"
+        app:layout_constraintTop_toTopOf="@+id/separator1" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

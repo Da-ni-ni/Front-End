@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ClosenessFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tvQuestionNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Q1."
+            android:fontFamily="@font/bjuma_ttf"
+            android:textSize="24sp"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/green500"/>
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="우리 가족은 대화를 많이 하는 편이다."
+            android:fontFamily="@font/bjuma_ttf"
+            android:textSize="26sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/green500"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="32dp">
+            <Button android:id="@+id/btnOption1" style="@style/OptionButton"/>
+            <Button android:id="@+id/btnOption2" style="@style/OptionButton"/>
+            <Button android:id="@+id/btnOption3" style="@style/OptionButton"/>
+            <Button android:id="@+id/btnOption4" style="@style/OptionButton"/>
+            <Button android:id="@+id/btnOption5" style="@style/OptionButton"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="다음"
+            style="@style/Button_Title"
+            android:background="@drawable/selector_check_button"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/green500"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:indeterminate="true" />
+
+
+
+</FrameLayout>

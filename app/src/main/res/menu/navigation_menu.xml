@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/homeFragment"
+      android:icon="@drawable/ic_home"
+      android:checkable="true"
+      >
+
+  </item>
+
+  <item
+      android:id="@+id/dailyQuestionFragment"
+      android:icon="@drawable/ic_q"
+      android:checkable="true">
+  </item>
+
+  <item
+      android:id="@+id/weekBoardFragment"
+      android:icon="@drawable/diary_svgrepo_com"
+      android:checkable="true">
+  </item>
+
+  <item
+      android:id="@+id/mypageFragemnt"
+      android:icon="@drawable/ic_mypage"
+      android:checkable="true">
+  </item>
+
+</menu>

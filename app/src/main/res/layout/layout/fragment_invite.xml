@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.InviteFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_Invite1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:title="가족 초대"
+        app:titleTextAppearance="@style/Toolbar_title"
+        tools:layout_editor_absoluteY="-7dp" />
+
+    <TextView
+        android:id="@+id/tv_small_family_logo1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="가족 초대"
+        style="@style/Top_bold_title"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf ="@+id/toolbar_Invite1"/>
+
+    <TextView
+        android:id="@+id/tv_gray_family_ex1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="가족을 초대하여\n그룹을 형성하세요!"
+        style="@style/Top_gray_right"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_small_family_logo1"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_very_small_family_logo1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="초대코드"
+        style="@style/Very_small_logo"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf ="@+id/tv_gray_family_ex1"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_constraint"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_very_small_family_logo1">
+
+        <EditText
+            android:id="@+id/et_invite_code"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:padding="12dp"
+            android:background="@drawable/selector_invite_link_edit_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <Button
+            android:id="@+id/bt_chk"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="확인"
+            android:background="@drawable/background_mini_share_button"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            style="@style/Very_small_button_title"
+            app:layout_constraintTop_toTopOf="@+id/et_invite_code"
+            app:layout_constraintBottom_toBottomOf="@id/et_invite_code"
+            app:layout_constraintEnd_toEndOf="@+id/et_invite_code"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_gray_family_ex2"
+        style="@style/Top_gray_right"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="아직 가족 그룹이 없으신가요?\n초대 코드를 생성하여 가족 그룹을 만들어주세요!"
+        app:layout_constraintTop_toBottomOf="@+id/cl_constraint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="226dp" />
+
+
+    <Button
+        android:id="@+id/bt_invite_chk"
+        style="@style/Button_Title"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/button_background_intro"
+        android:text="가족 그룹 생성"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_gray_family_ex2"
+        app:layout_constraintVertical_bias="0.051" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

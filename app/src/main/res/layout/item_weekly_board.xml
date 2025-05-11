@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/back_paper">
+
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2025.03.31"
+        android:fontFamily="@font/someone"
+        android:textSize="20dp"
+        android:textColor="@color/gray1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_mini_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDate">
+
+    <TextView
+        android:id="@+id/tvAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="엄마"
+        android:fontFamily="@font/someone"
+        android:textSize="26dp"
+        app:layout_constraintStart_toStartOf="@id/cl_mini_area"
+        app:layout_constraintTop_toTopOf="@+id/cl_mini_area"/>
+
+    <TextView
+        android:id ="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "오후 11시 23분"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/someone"
+        android:textSize="20dp"
+        android:textColor="@color/gray1"
+        app:layout_constraintStart_toEndOf="@+id/tvAuthor"
+        app:layout_constraintTop_toTopOf="@+id/cl_mini_area"
+        app:layout_constraintEnd_toEndOf="@+id/cl_mini_area"
+        app:layout_constraintBottom_toBottomOf="@id/cl_mini_area"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오늘 하루도 다들 고생했다!"
+        android:layout_marginTop="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_mini_area"
+        android:fontFamily="@font/someone"
+        android:textSize="26dp"
+        android:textColor="@color/gray2"/>
+
+    <!-- 좋아요/댓글 -->
+    <TextView
+        android:id="@+id/tvStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="좋아요 3개   댓글 2개"
+        android:visibility="gone"
+        android:fontFamily="@font/someone"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContent"/>
+
+    <View
+        android:id="@+id/separator_my_vs_family"
+        android:layout_width="0dp"
+        android:layout_height="0.1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tvStats"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

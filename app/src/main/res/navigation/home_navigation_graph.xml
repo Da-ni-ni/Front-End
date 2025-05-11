@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/homeFragment">
+
+    <!-- 홈 -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="main_oper_except_emotion.ui.emotion.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_myEmotionChangeFragment"
+            app:destination="@id/myEmotionChangeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_personalFamilyNameFragment"
+            app:destination="@id/personalFamilyNameFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_dailyQuestionFragment2"
+            app:destination="@id/dailyQuestionFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_groupNameFragment"
+            app:destination="@id/groupNameFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_weekBoardFragment"
+            app:destination="@id/weekBoardFragment" />
+    </fragment>
+
+    <!-- 감정 수정 -->
+    <fragment
+        android:id="@+id/myEmotionChangeFragment"
+        android:name="main_oper_except_emotion.ui.emotion.MyEmotionChangeFragment"
+        android:label="fragment_my_emotion_chagne"
+        tools:layout="@layout/fragment_my_emotion_chagne" >
+        <action
+            android:id="@+id/action_myEmotionChangeFragment_to_myNameChangeFragment"
+            app:destination="@id/myNameChangeFragment" />
+    </fragment>
+
+    <!-- 이름 수정 -->
+    <fragment
+        android:id="@+id/myNameChangeFragment"
+        android:name="main_oper_except_emotion.ui.name.MyNameChangeFragment"
+        android:label="fragment_my_name_change"
+        tools:layout="@layout/fragment_my_name_change" />
+
+    <!-- 가족 이름 설정 -->
+    <fragment
+        android:id="@+id/personalFamilyNameFragment"
+        android:name="main_oper_except_emotion.ui.name.PersonalFamilyNameFragment"
+        android:label="fragment_personalfamilyname"
+        tools:layout="@layout/fragment_personalfamilyname" />
+
+    <!-- 일일 문답 -->
+    <fragment
+        android:id="@+id/dailyQuestionFragment"
+        android:name="main_oper_except_emotion.ui.question.DailyQuestionFragment"
+        android:label="fragment_daily_question"
+        tools:layout="@layout/fragment_daily_question">
+        <action
+            android:id="@+id/action_dailyQuestionFragment_to_monthQuestionListFragment"
+            app:destination="@id/monthQuestionListFragment" />
+        <action
+            android:id="@+id/action_dailyQuestionFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_dailyQuestionFragment_to_dailyAnswerFragment"
+            app:destination="@id/dailyAnswerFragment" />
+        <action
+            android:id="@+id/action_dailyQuestionFragment_to_weekBoardFragment"
+            app:destination="@id/weekBoardFragment" />
+        <action
+            android:id="@+id/action_dailyQuestionFragment_to_answerWriteFragment"
+            app:destination="@id/answerWriteFragment" />
+        <action
+            android:id="@+id/action_dailyQuestionFragment_to_answerWriteFragment2"
+            app:destination="@id/answerWriteFragment" />
+    </fragment>
+
+    <!-- 월간 문답 리스트 -->
+    <fragment
+        android:id="@+id/monthQuestionListFragment"
+        android:name="main_oper_except_emotion.ui.question.MonthQuestionListFragment"
+        android:label="fragment_month_question_list"
+        tools:layout="@layout/fragment_month_question_list" >
+        <action
+            android:id="@+id/action_monthQuestionListFragment_to_monthlyAnswerDetailFragment"
+            app:destination="@id/monthlyAnswerDetailFragment" />
+        <argument
+            android:name="questionId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupNameFragment"
+        android:name="main_oper_except_emotion.ui.name.GroupNameFragment"
+        android:label="fragment_group_name"
+        tools:layout="@layout/fragment_group_name" />
+    <fragment
+        android:id="@+id/dailyAnswerFragment"
+        android:name="main_oper_except_emotion.ui.question.DailyAnswerFragment"
+        android:label="fragment_daily_answer"
+        tools:layout="@layout/fragment_daily_answer" />
+
+    <fragment
+        android:id="@+id/monthlyAnswerDetailFragment"
+        android:name="main_oper_except_emotion.ui.question.MonthlyAnswerDetailFragment"
+        android:label="MonthlyAnswerDetailFragment">
+        <argument
+            android:name="questionId"
+            app:argType="integer" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/weekBoardFragment"
+        android:name="main_oper_except_emotion.ui.diary.WeekBoardFragment"
+        android:label="WeekBoardFragment" >
+        <action
+            android:id="@+id/action_weekBoardFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_weekBoardFragment_to_dailyQuestionFragment"
+            app:destination="@id/dailyQuestionFragment" />
+
+
+        <action
+            android:id="@+id/action_weekBoardFragment_to_writeFragment"
+            app:destination="@id/writeFragment" />
+
+        <action
+            android:id="@+id/action_weekBoardFragment_to_detailPostFragment"
+            app:destination="@id/detailPostFragment">
+            <argument
+                android:name="dailyId"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/writeFragment"
+        android:name="main_oper_except_emotion.ui.diary.WriteFragment"
+        android:label="fragment_write"
+        tools:layout="@layout/fragment_write" >
+
+
+
+        <action
+            android:id="@+id/action_writeFragment_to_weekBoardFragment"
+            app:destination="@id/weekBoardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/answerWriteFragment"
+        android:name="main_oper_except_emotion.ui.question.AnswerWriteFragment"
+        android:label="fragment_answer_write"
+        tools:layout="@layout/fragment_answer_write" >
+        <argument
+            android:name="questionId"
+            app:argType="integer" /> <!-- 매개변수의 타입을 명확히 지정 -->
+        <action
+            android:id="@+id/action_answerWriteFragment_to_dailyQuestionFragment"
+            app:destination="@id/dailyQuestionFragment" >
+            <argument
+                android:name="questionId"
+                app:argType="integer" /> <!-- argument도 안전하게 지정 -->
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detailPostFragment"
+        android:name="main_oper_except_emotion.ui.diary.DetailPostFragment"
+        android:label="DetailPostFragment" >
+        <action
+            android:id="@+id/action_detailPostFragment_to_writeFragment"
+            app:destination="@id/writeFragment" />
+    </fragment>
+
+
+    <!-- 답변 페이지 -->
+
+    <!-- 설정 -->
+</navigation>
