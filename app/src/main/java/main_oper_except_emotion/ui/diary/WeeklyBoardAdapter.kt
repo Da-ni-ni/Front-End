@@ -15,7 +15,7 @@ import main_oper_except_emotion.requestandresponse.diary.WeekBoardCheckResponse
 
 class WeeklyBoardAdapter(
     private val items: List<WeekBoardCheckResponse>, // 서버에서 받아온 주간 일기 리스트
-    private val onItemClick: (Int) -> Unit // dailyId 전달
+    private val onItemClick: (Int) -> Unit // 주간 일기 조회시, 전달 받은 dailyId 전달
 ) : RecyclerView.Adapter<WeeklyBoardAdapter.WeeklyBoardViewHolder>() {
 
     // ViewHolder 클래스

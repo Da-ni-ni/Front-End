@@ -32,6 +32,7 @@ class DetailPostFragment : Fragment() {
     private var _binding: FragmentDetailPostBinding? = null
     private val binding get() = _binding!!
 
+    //클릭시 dailyId를 받는다.
     private val args: FragmentDetailPostBinding by navArgs()
     private val viewModel: DiaryViewModel by viewModels()
 

@@ -51,7 +51,10 @@ class AnswerWriteFragment : Fragment() {
 
         // 툴바 뒤로가기
 
-
+        // 🔹 툴바 뒤로가기
+        binding.toolbarQuestion.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
 
 
         viewModel.loadTodayQuestion()
@@ -99,17 +102,7 @@ class AnswerWriteFragment : Fragment() {
                 .show()
         }
 
-        val newQuestion = QuestionDetailResponse(
-            question_id = 42,
-            date = "2025-05-04",
-            daily_question = "새로운 질문은 무엇인가요?",
-            answers = listOf(
-                Answer(user_id = 101, nickname = "나", answer = "새로운 답변" , question_id = 4)
-            )
-        )
 
-// 새로운 질문 추가
-        viewModel.addNewQuestion(newQuestion)
 
         viewModel.answerDeleted.observe(viewLifecycleOwner) { deleted ->
             if (deleted) {

@@ -2,6 +2,7 @@ package main_oper_except_emotion.ui.diary
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +16,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.main_oper_except_emotion.databinding.FragmentWeekBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
+import main_oper_except_emotion.requestandresponse.diary.WeekBoardCheckResponse
 import main_oper_except_emotion.viewmodel.DiaryViewModel
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.time.temporal.WeekFields
 import java.util.*
 
@@ -77,9 +80,9 @@ class WeekBoardFragment : Fragment() {
                     .with(weekFields.weekOfMonth(), weekNumber.toLong())
                     .with(DayOfWeek.MONDAY)
 
-                val weekEnd = weekStart.with(DayOfWeek.SUNDAY)
 
                 if (weekStart.month == month.month) {
+                    val weekEnd = weekStart.with(DayOfWeek.SUNDAY)
                     weekStart to weekEnd
                 } else null
             }
@@ -110,47 +113,50 @@ class WeekBoardFragment : Fragment() {
                     id: Long
                 ) {
                     val selectedStartDate = weekRanges[position].first
+                    Log.d(
+                        "WeekBoardFragment",
+                        "Spinner item selected, date: $selectedStartDate"
+                    ) // 로그 확인
                     viewModel.fetchWeeklyDiaries(selectedStartDate)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
 
-        // 게시글 수신 후 리사이클 뷰에 표시
+
         // 게시글 수신 후 리사이클 뷰에 표시
         lifecycleScope.launchWhenStarted {
             viewModel.weeklyBoards.collect { boards ->
-                // 어댑터를 한 번만 생성하고 리사이클러뷰에 연결
-                // collect는 비동기 스트림을 구독하는 함수
-                // weeklyBoards에 새로운 게시글 리스트가 업데이트 될 때마다, 새로운 리스트(board)를 받게 된다.
+                Log.d("WeekBoardFragment", "Boards received: ${boards.size} items") // 데이터 갱신 여부 확인
                 adapter = WeeklyBoardAdapter(boards) { dailyId ->
-                    // 클릭 시 상세 조회 페이지로 이동
-                    val action = WeekBoardFragmentDirections.actionWeekBoardFragmentToDetailPostFragment(dailyId)
+                    val action =
+                        WeekBoardFragmentDirections.actionWeekBoardFragmentToDetailPostFragment(
+                            dailyId
+                        )
                     findNavController().navigate(action)
                 }
-
-                // 리사이클러뷰에 어댑터 설정
                 binding.recyclerWeeklyBoard.adapter = adapter
             }
 
 
 
-            }
-
-            binding.fabWriteDiary.setOnClickListener {
-                val action = WeekBoardFragmentDirections.actionWeekBoardFragmentToWriteFragment()
-                findNavController().navigate(action)
-            }
         }
 
-        override fun onDestroyView() {
-            super.onDestroyView()
-            _binding = null
-        }
-
-        @RequiresApi(Build.VERSION_CODES.O)
-        private fun getWeekOfMonth(date: LocalDate): Int {
-            val weekFields = WeekFields.of(Locale.KOREA)
-            return date.get(weekFields.weekOfMonth())
+        binding.fabWriteDiary.setOnClickListener {
+            val action = WeekBoardFragmentDirections.actionWeekBoardFragmentToWriteFragment()
+            findNavController().navigate(action)
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getWeekOfMonth(date: LocalDate): Int {
+        val weekFields = WeekFields.of(Locale.KOREA)
+        return date.get(weekFields.weekOfMonth())
+    }
+}
+

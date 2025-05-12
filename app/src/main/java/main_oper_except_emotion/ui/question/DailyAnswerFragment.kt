@@ -70,12 +70,12 @@ class DailyAnswerFragment : Fragment() {
             answerViews[i].visibility = View.GONE
         }
 
-//        // 🔹 오늘의 질문 + 상세 답변 로드
-//        viewModel.loadTodayQuestion()
-//        viewModel.todayQuestion.observe(viewLifecycleOwner) { question ->
-//            viewModel.loadQuestionDetail(question.question_id)
-//
-//        }
+        // 🔹 오늘의 질문 + 상세 답변 로드
+        viewModel.loadTodayQuestion()
+        viewModel.todayQuestion.observe(viewLifecycleOwner) { question ->
+            question.question_id?.let { viewModel.loadQuestionDetail(it) }
+
+        }
 
         // ✅ 2. 서버 응답 시 내 답변 + 가족 답변 표시
         viewModel.questionDetail.observe(viewLifecycleOwner) { detail ->

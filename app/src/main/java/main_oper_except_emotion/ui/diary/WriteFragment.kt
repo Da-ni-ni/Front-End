@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -27,7 +29,6 @@ class WriteFragment : Fragment() {
     private val viewModel: DiaryViewModel by viewModels()
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -44,10 +45,14 @@ class WriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbarDiary.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_dailyQuestionFragment_to_monthQuestionListFragment)
+        val toolbar: Toolbar = binding.toolbarDiary
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+
+        toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
+        // 답변 제출
         binding.btWriteBtn.setOnClickListener {
 
             val content = binding.etWrite.text.toString().trim()
@@ -60,12 +65,12 @@ class WriteFragment : Fragment() {
                 Toast.makeText(requireContext(), "내용을 입력하세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-//
+
             viewModel.createDiary(requestCreateDiary)
 
         }
 
-
+        // 주간 게시판으로 넘어가서, 금일 답변 조회
         viewModel.diaryCreated.observe(viewLifecycleOwner) { isSuccess ->
             if (isSuccess) {
                 Toast.makeText(requireContext(), "작성 완료!", Toast.LENGTH_SHORT).show()
