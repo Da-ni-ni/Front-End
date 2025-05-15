@@ -17,6 +17,7 @@ class QuestionViewModel @Inject constructor(
     private val repository: QuestionRepository
 ) : ViewModel() {
 
+    // 오늘의 질문의 라이브 데이터
     private val _todayQuestion = MutableLiveData<DailyQuestionResponse>()
     val todayQuestion: LiveData<DailyQuestionResponse> = _todayQuestion
 
@@ -40,6 +41,7 @@ class QuestionViewModel @Inject constructor(
 
     private val _localMyAnswer = MutableLiveData<String>()
     val localMyAnswer: LiveData<String> get() = _localMyAnswer
+
 
     // 1. 오늘의 질문 불러오기
     fun loadTodayQuestion() {

@@ -30,7 +30,7 @@
         android:id="@+id/et_write"
         android:layout_width="400dp"
         android:layout_height="600dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint=" 내용을 입력해주세요"

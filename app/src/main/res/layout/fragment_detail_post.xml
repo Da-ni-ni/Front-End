@@ -5,7 +5,6 @@
     android:background="@color/gray0"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_diary"
         android:layout_width="match_parent"
@@ -19,31 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_Edit_Diary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="수정"
-        android:layout_marginTop="15dp"
-        android:textAppearance="@style/Button_Title"
-        android:background="@drawable/button_background_intro"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_diary"
-        app:layout_constraintEnd_toStartOf="@+id/btn_Delete_Diary"
-        android:layout_marginEnd="8dp" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_Delete_Diary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="삭제"
-        android:layout_marginTop="15dp"
-        android:textAppearance="@style/Button_Title"
-        android:background="@drawable/button_background_intro"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_diary"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        />
+    <!-- ✅ 수정/삭제 → 더보기 버튼으로 통합 -->
 
 
     <androidx.core.widget.NestedScrollView
@@ -60,7 +35,17 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <!-- 작성자 + 시간 -->
+            <ImageButton
+                android:id="@+id/btnMoreDiary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_more_vert"
+                android:contentDescription="더보기"
+                android:background="?attr/selectableItemBackgroundBorderless"
+
+                app:layout_constraintTop_toTopOf="@id/detail_container"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <TextView
                 android:id="@+id/tvAuthor"
                 android:layout_width="wrap_content"
@@ -92,13 +77,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginEnd="16dp"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>>
-
-            <!-- 일기 내용 -->
-
-            <!-- 구분선 -->
             <TextView
                 android:id="@+id/tvContent"
                 android:layout_width="0dp"
@@ -109,7 +89,6 @@
                 android:textColor="@color/gray2"
                 android:textSize="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvAuthor" />
 
@@ -123,7 +102,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="30dp"/>
 
-            <!-- 좋아요 버튼 + 숫자 -->
             <ImageView
                 android:id="@+id/btnLike"
                 android:layout_width="32dp"
@@ -145,8 +123,6 @@
                 app:layout_constraintStart_toEndOf="@id/btnLike"
                 app:layout_constraintTop_toTopOf="@id/view_separator1" />
 
-
-            <!-- 두 번째 구분선 -->
             <View
                 android:id="@+id/view_separator2"
                 android:layout_width="0dp"
@@ -157,9 +133,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="5dp"/>
 
-
-
-            <!-- 댓글 제목 -->
             <TextView
                 android:id="@+id/tvCommentHeader"
                 android:layout_width="wrap_content"
@@ -179,17 +152,13 @@
                 android:layout_marginTop="13dp"
                 android:text="0"
                 android:textSize="30dp"
-                android:layout_marginStart="5dp"
                 android:fontFamily="@font/kangwon"
+                android:layout_marginStart="5dp"
                 android:layout_marginBottom="10dp"
                 app:layout_constraintStart_toEndOf="@id/tvCommentHeader"
                 app:layout_constraintTop_toTopOf="@id/view_separator2"
                 app:layout_constraintBottom_toBottomOf="@id/commentContainer" />
 
-
-
-
-            <!-- 댓글 목록 컨테이너 -->
             <LinearLayout
                 android:id="@+id/commentContainer"
                 android:layout_width="0dp"
@@ -200,7 +169,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="8dp"/>
 
-            <!-- 댓글 입력 -->
             <EditText
                 android:id="@+id/etCommentInput"
                 android:layout_width="0dp"
@@ -215,7 +183,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="16dp"/>
 
-            <!-- 댓글 등록 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnPostComment"
                 android:layout_width="wrap_content"
@@ -227,9 +194,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="8dp"/>
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

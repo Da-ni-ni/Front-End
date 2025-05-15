@@ -18,6 +18,7 @@ class QuestionRepository @Inject constructor(
 ) {
 
     // 1. 오늘의 질문 조회
+    // 질문 값을 받아와야 하니까
     suspend fun getDailyQuestion(): Result<DailyQuestionResponse> {
         return try {
             val response = api.getDailyQuestion()
@@ -49,6 +50,7 @@ class QuestionRepository @Inject constructor(
             Result.failure(e)
         }
     }
+
 
     // 3. 월간 문답 조회
     suspend fun getMonthlyQna(year: Int, month: Int): Result<List<MonthlyQuestion>> {
@@ -98,21 +100,7 @@ class QuestionRepository @Inject constructor(
         }
     }
 
-    // 6. 질문 상세 조회
-//    suspend fun getQuestionDetail(questionId: Int): Result<QuestionDetailResponse> {
-//        return try {
-//            val response = api.getQuestionDetail(questionId)
-//            if (response.isSuccessful) {
-//                response.body()?.let { Result.success(it) }
-//                    ?: Result.failure(Exception("응답 본문이 비어 있음"))
-//            } else {
-//                Result.failure(Exception("서버 오류: ${response.code()}"))
-//            }
-//        } catch (e: Exception) {
-//            Result.failure(e)
-//        }
-//    }
-//}
+
     suspend fun getQuestionDetail(questionId: Long): Result<QuestionDetailResponse> {
         return try {
             val response = api.getQuestionDetail(questionId)
@@ -126,7 +114,5 @@ class QuestionRepository @Inject constructor(
             Result.failure(e)
         }
     }
-
-
 
 }

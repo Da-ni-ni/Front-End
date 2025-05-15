@@ -4,6 +4,7 @@ import java.time.LocalDate
 
 data class MonthlyQuestion(
     val questionId: Long,
+    val date: String,
     val question: String,
-    val date: String
+
 )

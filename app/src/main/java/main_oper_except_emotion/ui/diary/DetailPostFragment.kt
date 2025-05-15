@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -27,6 +29,7 @@ import main_oper_except_emotion.requestandresponse.diary.UpdateCommentRequest
 import main_oper_except_emotion.viewmodel.DiaryViewModel
 import java.time.LocalDate
 import kotlinx.coroutines.flow.collectLatest
+import main_oper_except_emotion.OptionBottomSheetFragment
 import main_oper_except_emotion.requestandresponse.diary.UpdateDiaryRequest
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -39,7 +42,6 @@ class DetailPostFragment : Fragment() {
     private var _binding: FragmentDetailPostBinding? = null
     private val binding get() = _binding!!
     private val args: DetailPostFragmentArgs by navArgs()
-
     private val viewModel: DiaryViewModel by viewModels()
 
     override fun onCreateView(
@@ -50,23 +52,38 @@ class DetailPostFragment : Fragment() {
         return binding.root
     }
 
-    // 수정된 부분만 발췌합니다. 전체는 유지됩니다.
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. dailyId 결정: Safe Args → selectedDailyId 순으로 사용
         val dailyId = when (args.source) {
             "write" -> args.dailyId
             else -> viewModel.selectedDailyId.value
-        } ?: return // dailyId가 없으면 종료
+        } ?: return
 
-        // 2. 상세 조회 호출
         viewModel.getPostDetail(dailyId)
 
-        val myUserId = viewModel.getMyUserId()
+        // ✅ 게시물 더보기 버튼 클릭
+        binding.btnMoreDiary.setOnClickListener {
+            val sheet = OptionBottomSheetFragment(
+                type = OptionBottomSheetFragment.OptionType.POST,
+                onEdit = { showUpdateDiaryDialog(dailyId) },
+                onDelete = {
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("일기를 삭제하시겠습니까?")
+                        .setMessage("삭제된 일기는 복구할 수 없습니다.")
+                        .setPositiveButton("삭제") { _, _ ->
+                            viewModel.deleteDiary(dailyId)
+                            Toast.makeText(requireContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                            findNavController().popBackStack()
+                        }
+                        .setNegativeButton("취소", null)
+                        .show()
+                }
+            )
+            sheet.show(parentFragmentManager, "PostOptions")
+        }
 
-        // 3. 이후 기존 postDetail observe 로직 유지
         viewModel.postDetail.observe(viewLifecycleOwner) { detail ->
             detail?.let {
                 binding.tvAuthor.text = it.authorName
@@ -76,14 +93,6 @@ class DetailPostFragment : Fragment() {
                 binding.tvContent.text = it.content
                 binding.commentContainer.removeAllViews()
 
-                if (it.userId == myUserId) {
-                    binding.btnEditDiary.visibility = View.VISIBLE
-                    binding.btnDeleteDiary.visibility = View.VISIBLE
-                } else {
-                    binding.btnEditDiary.visibility = View.GONE
-                    binding.btnDeleteDiary.visibility = View.GONE
-                }
-
                 it.comments.forEach { comment ->
                     val commentLayout = LinearLayout(requireContext()).apply {
                         orientation = LinearLayout.HORIZONTAL
@@ -92,61 +101,58 @@ class DetailPostFragment : Fragment() {
 
                     val tvComment = TextView(requireContext()).apply {
                         text = "- ${comment.authorName}: ${comment.content}"
-                        layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
+                        layoutParams = LinearLayout.LayoutParams(
+                            0,
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            1f
+                        )
+                    }
+
+                    val btnMore = ImageButton(requireContext()).apply {
+                        setImageResource(R.drawable.ic_more_vert)
+                        background = ContextCompat.getDrawable(context, android.R.drawable.btn_default_small)
+                        layoutParams = LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
+                        setOnClickListener {
+                            val sheet = OptionBottomSheetFragment(
+                                type = OptionBottomSheetFragment.OptionType.COMMENT,
+                                onEdit = {
+                                    showEditDialog(dailyId, comment.commentId, comment.content)
+                                },
+                                onDelete = {
+                                    AlertDialog.Builder(requireContext())
+                                        .setTitle("댓글 삭제")
+                                        .setMessage("정말 이 댓글을 삭제할까요?")
+                                        .setPositiveButton("삭제") { _, _ ->
+                                            viewModel.deleteComment(dailyId, comment.commentId)
+                                            viewModel.getPostDetail(dailyId)
+                                            Toast.makeText(requireContext(), "댓글 삭제됨", Toast.LENGTH_SHORT).show()
+                                        }
+                                        .setNegativeButton("취소", null)
+                                        .show()
+                                }
+                            )
+                            sheet.show(parentFragmentManager, "CommentOptions")
+                        }
                     }
 
                     commentLayout.addView(tvComment)
-
-                    if (comment.userId == myUserId) {
-                        val btnEdit = Button(requireContext()).apply {
-                            text = "수정"
-                            setOnClickListener {
-                                showEditDialog(dailyId, comment.commentId, comment.content)
-                            }
-                        }
-
-                        val btnDelete = Button(requireContext()).apply {
-                            text = "삭제"
-                            setOnClickListener {
-                                AlertDialog.Builder(requireContext())
-                                    .setTitle("댓글 삭제")
-                                    .setMessage("정말 이 댓글을 삭제할까요?")
-                                    .setPositiveButton("삭제") { _, _ ->
-                                        viewModel.deleteComment(dailyId, comment.commentId)
-                                        viewModel.getPostDetail(dailyId)
-                                        Toast.makeText(requireContext(), "댓글 삭제됨", Toast.LENGTH_SHORT).show()
-                                    }
-                                    .setNegativeButton("취소", null)
-                                    .show()
-                            }
-                        }
-
-                        commentLayout.addView(btnEdit)
-                        commentLayout.addView(btnDelete)
-                    }
+                    commentLayout.addView(btnMore)
 
                     binding.commentContainer.addView(commentLayout)
                 }
             }
         }
 
-        // 수정 버튼
-        binding.btnEditDiary.setOnClickListener {
-            showUpdateDiaryDialog(dailyId)
-        }
-
-        // 삭제 버튼
-        binding.btnDeleteDiary.setOnClickListener {
-            AlertDialog.Builder(requireContext())
-                .setTitle("일기를 삭제하시겠습니까?")
-                .setMessage("삭제된 일기는 복구할 수 없습니다.")
-                .setPositiveButton("삭제") { _, _ ->
-                    viewModel.deleteDiary(dailyId)
-                    Toast.makeText(requireContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                    findNavController().popBackStack()
-                }
-                .setNegativeButton("취소", null)
-                .show()
+        binding.btnPostComment.setOnClickListener {
+            val content = binding.etCommentInput.text.toString().trim()
+            if (content.isNotEmpty()) {
+                val request = CreateCommentRequest(content)
+                viewModel.addComment(dailyId, request)
+                binding.etCommentInput.text.clear()
+            }
         }
     }
 

@@ -8,7 +8,6 @@ data class PostDetailResponse(
     val likeCount: Long,
     val commentCount: Long,
     val comments: List<Comment>,
-    val userId : Long?
 )
 
 data class Comment(
@@ -16,5 +15,4 @@ data class Comment(
     val authorName: String,
     val content: String,
     val createdAt: String,
-    val userId : Long?
 )
