@@ -15,20 +15,18 @@ import com.example.main_oper_except_emotion.R
 import com.example.main_oper_except_emotion.databinding.FragmentMyEmotionChagneBinding
 import dagger.hilt.android.AndroidEntryPoint
 import main_oper_except_emotion.TokenManager
-import main_oper_except_emotion.requestandresponse.emotion.Emotion
+import main_oper_except_emotion.requestandresponse.emotion.EmotionType
 import main_oper_except_emotion.viewmodel.EmotionViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyEmotionChangeFragment : Fragment() {
+
     private var _binding: FragmentMyEmotionChagneBinding? = null
     private val binding get() = _binding!!
+
     @Inject lateinit var tokenManager: TokenManager
     private val viewModel: EmotionViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,18 +42,22 @@ class MyEmotionChangeFragment : Fragment() {
 
         val toolbar: Toolbar = binding.toolbarEmotion
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-
         toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        val savedName = tokenManager.getUserName()
-        binding.textViewUserName.text = savedName ?: "나"
-
         // 감정 상태 복원
-        viewModel.currentEmotion.observe(viewLifecycleOwner, { currentEmotion ->
-            binding.currentEmotion.setImageResource(Emotion.getImageRes(currentEmotion))
-        })
+        viewModel.currentEmotion.observe(viewLifecycleOwner) { currentEmotion ->
+            val resId = when (currentEmotion) {
+                EmotionType.HAPPY -> R.drawable.ic_joy
+                EmotionType.SAD -> R.drawable.ic_sad
+                EmotionType.TIRED -> R.drawable.ic_tired
+                EmotionType.MISSING -> R.drawable.ic_missed
+                EmotionType.ANGRY -> R.drawable.ic_angry
+                EmotionType.RELAXED -> R.drawable.ic_comfort
+            }
+            binding.currentEmotion.setImageResource(resId)
+        }
 
         setupEmotionListeners()
     }
@@ -63,23 +65,22 @@ class MyEmotionChangeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setupEmotionListeners() {
         val emotionMap = mapOf(
-            binding.emotionJoy to Emotion.JOY,
-            binding.emotionSad to Emotion.SAD,
-            binding.emotionTired to Emotion.TIRED,
-            binding.emotionMissed to Emotion.MISSED,
-            binding.emotionAngry to Emotion.ANGRY,
-            binding.emotionComfort to Emotion.COMFORT
+            binding.emotionJoy to EmotionType.HAPPY,
+            binding.emotionSad to EmotionType.SAD,
+            binding.emotionTired to EmotionType.TIRED,
+            binding.emotionMissed to EmotionType.MISSING,
+            binding.emotionAngry to EmotionType.ANGRY,
+            binding.emotionComfort to EmotionType.RELAXED
         )
 
         for ((view, emotion) in emotionMap) {
             view.setOnClickListener {
-                // 감정 상태를 ViewModel에 저장
-                viewModel.setMyEmotion(emotion) // 로컬 상태 반영
-                viewModel.updateEmotion(emotion) // 서버에 감정 수정
+                viewModel.setMyEmotion(emotion) // 로컬 상태 저장
+                viewModel.updateEmotion(emotion) // 서버에 감정 업데이트 요청
             }
         }
 
-        binding.currentEmotion.setOnClickListener{
+        binding.currentEmotion.setOnClickListener {
             findNavController().navigate(R.id.action_myEmotionChangeFragment_to_myNameChangeFragment)
         }
     }

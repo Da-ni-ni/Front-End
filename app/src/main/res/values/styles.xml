@@ -1,11 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Area_Top_title">
-        <item name="android:fontFamily">@font/gowundodum</item>
+<!--일기-->
+    <style name="Daily_list_date">
+        <item name="android:fontFamily">@font/kangwon</item>
         <item name="android:textColor">@color/gray2</item>
         <item name="android:textSize">25sp</item>
     </style>
+
+    <style name="Daily_list_name">
+        <item name="android:fontFamily">@font/kangwon</item>
+        <item name="android:textColor">@color/gray2</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Daily_list_title">
+        <item name="android:fontFamily">@font/kangwon</item>
+        <item name="android:textColor">@color/gray2</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Explain_detail_gray2">
+        <item name="android:fontFamily">@font/kangwon</item>
+        <item name="android:textColor">@color/gray2</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+
+    <style name="Area_Top_title">
+        <item name="android:fontFamily">@font/kangwon</item>
+        <item name="android:textColor">@color/gray2</item>
+        <item name="android:textSize">35sp</item>
+    </style>
+
+    <style name="Toolbar_title">
+        <item name="android:fontFamily">@font/kangwon</item>
+        <item name="android:textColor">@color/gray2</item>
+        <item name="android:textSize">35sp</item>
+    </style>
+
+    <style name="Edit_Title">
+        <item name="android:fontFamily">@font/kangwon</item>
+        <item name="android:textColor">@color/gray2</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="Caption_title">
+        <item name="android:fontFamily">@font/kangwon</item>
+        <item name="android:textColor">@color/gray2</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Button_Title">
+        <item name="android:fontFamily">@font/kangwon</item>
+        <item name="android:textColor">@color/gray2</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="Top_explain_body_title">
+        <item name="android:fontFamily">@font/kangwon</item>
+        <item name="android:textColor">@color/gray2</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="CustomHintTextAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/gray2</item>
+        <item name="android:fontFamily">@font/kangwon</item> <!-- 원하는 폰트 지정 -->
+    </style>
+
+
+
+
+
+
 
     <style name="List_Momthly_logo">
         <item name="android:fontFamily">@font/someone</item>
@@ -14,12 +89,7 @@
     </style>
 
 
-    <style name="Button_Title">
-        <item name="android:fontFamily">@font/gowundodum</item>
-        <item name="android:textColor">@color/gray2</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
+
 
 
     <style name="Intro_middle_Title">
@@ -42,18 +112,7 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="Edit_Title">
-        <item name="android:fontFamily">@font/gowundodum</item>
-        <item name="android:textColor">@color/gray2</item>
-        <item name="android:textSize">20sp</item>
-    </style>
 
-
-    <style name="Toolbar_title">
-        <item name="android:fontFamily">@font/gowunbangtangbold</item>
-        <item name="android:textColor">@color/gray2</item>
-        <item name="android:textSize">22sp</item>
-    </style>
 
 
     <style name="Top_title">

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.main_oper_except_emotion.databinding.ItemWeeklyBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
+import main_oper_except_emotion.WeekBoardUiModel
 import main_oper_except_emotion.requestandresponse.diary.WeekBoardCheckResponse
 
 // 어뎁터는 데이터를 어떻게 보여줄지를 저의하고
@@ -14,11 +15,10 @@ import main_oper_except_emotion.requestandresponse.diary.WeekBoardCheckResponse
 // 어뎁터는 데이터를 아이템 레이아웃에 바인딩함
 
 class WeeklyBoardAdapter(
-    private val items: List<WeekBoardCheckResponse>, // 서버에서 받아온 주간 일기 리스트
-    private val onItemClick: (Int) -> Unit // 주간 일기 조회시, 전달 받은 dailyId 전달
+    private val items: List<WeekBoardUiModel>,
+    private val onItemClick: (WeekBoardUiModel) -> Unit
 ) : RecyclerView.Adapter<WeeklyBoardAdapter.WeeklyBoardViewHolder>() {
 
-    // ViewHolder 클래스
     inner class WeeklyBoardViewHolder(val binding: ItemWeeklyBoardBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeeklyBoardViewHolder {
@@ -31,34 +31,35 @@ class WeeklyBoardAdapter(
         val item = items[position]
 
         with(holder.binding) {
-            // 날짜 표시 (같은 날짜는 숨김)
-            if (position == 0 || item.date != items[position - 1].date) {
-                tvDate.text = item.date
-                tvDate.visibility = View.VISIBLE
-            } else {
-                tvDate.visibility = View.GONE
-            }
+            val isFirst = position == 0
+            val isDifferentDate = isFirst || item.date != items[position - 1].date
 
-            // 작성자 이름, 시간, 내용
-            tvAuthor.text = item.name
-            tvTime.text = item.time
+            // 날짜 or 시간 표시
+            if (isDifferentDate) {
+                // 날짜 구간 시작 시 → 날짜 표시
+                tvDate.text = item.date
+            } else {
+                // 같은 날짜 안의 후속 글 → 시간만 표시
+                tvDate.text = item.time
+            }
+            tvDate.visibility = View.VISIBLE
+
+            tvAuthor.text = item.authorName
             tvContent.text = item.content
 
-            // 좋아요와 댓글 개수 표시
-            val hasStats = item.like_count > 0 || item.comment_count > 0
+            val hasStats = item.likeCount > 0 || item.commentCount > 0
             if (hasStats) {
                 tvStats.text = buildString {
-                    if (item.like_count > 0) append("좋아요 ${item.like_count}개   ")
-                    if (item.comment_count > 0) append("댓글 ${item.comment_count}개")
+                    if (item.likeCount > 0) append("좋아요 ${item.likeCount}개   ")
+                    if (item.commentCount > 0) append("댓글 ${item.commentCount}개")
                 }
                 tvStats.visibility = View.VISIBLE
             } else {
                 tvStats.visibility = View.GONE
             }
 
-            // 아이템 클릭 시, 해당 일기의 ID를 전달하여 상세보기 화면으로 이동
             root.setOnClickListener {
-                onItemClick(item.daily_id) // 클릭 시 dailyId 전달
+                onItemClick(item)
             }
         }
     }

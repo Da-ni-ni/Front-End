@@ -1,13 +1,14 @@
 package main_oper_except_emotion.requestandresponse.diary
 
-data class WeekBoardCheckResponse(
-    val daily_id : Int,
-    val date : String,
-    val content : String,
-    val like_count : Int,
-    val comment_count : Int,
+data class WeekBoardListResponse(
+    val dailyList: List<WeekBoardCheckResponse>
+)
 
-    // 필요하다고 생각함
-    val name : String,
-    val time: String
+data class WeekBoardCheckResponse(
+    val dailyId: Long,
+    val date: String,
+    val content: String,
+    val likeCount: Long,
+    val commentCount: Long,
+    val authorName: String
 )

@@ -19,7 +19,8 @@
             android:id="@+id/toolbar_Emotion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="문답"
+            app:title="일일 문답"
+            app:titleCentered="true"
             app:navigationIcon="@drawable/ic_left_arrow"
             app:titleTextAppearance="@style/Toolbar_title"
             app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="#10번째 문답  2025.04.01"
+            android:text="#3번째 문답  2025.05.12"
             android:textAppearance="@style/Top_detail"
             app:layout_constraintTop_toBottomOf="@id/tvQuestionText"
             app:layout_constraintEnd_toEndOf="parent" />

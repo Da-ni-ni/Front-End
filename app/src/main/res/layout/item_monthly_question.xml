@@ -24,7 +24,7 @@
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2025.05.01"
+            android:text="2025.05.11"
             style="@style/Top_detail"
             android:textSize="12sp"
             android:textColor="#999999" />

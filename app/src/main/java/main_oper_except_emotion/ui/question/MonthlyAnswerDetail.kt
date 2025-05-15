@@ -9,12 +9,9 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.main_oper_except_emotion.databinding.FragmentMonthlyAnswerDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
-import main_oper_except_emotion.Answer
 import main_oper_except_emotion.TokenManager
-import main_oper_except_emotion.requestandresponse.question.QuestionDetailResponse
 import main_oper_except_emotion.viewmodel.QuestionViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -49,12 +46,12 @@ class MonthlyAnswerDetailFragment : Fragment() {
         }
 
 
-        val questionId = arguments?.getInt("questionId") ?: return
+        val questionId = arguments?.getLong("questionId") ?: return
         viewModel.loadQuestionDetail(questionId) // 서버에서 진짜 질문 상세 요청
 
 
         viewModel.questionDetail.observe(viewLifecycleOwner) { detail ->
-            binding.tvQuestionText.text = detail.daily_question
+            binding.tvQuestionText.text = detail.dailyQuestion
 
             val startDate = tokenManager.getStartDate()
             val daysText = startDate?.let {
@@ -65,7 +62,7 @@ class MonthlyAnswerDetailFragment : Fragment() {
                 " · 우리 가족 ${diff}일 차"
             } ?: ""
 
-            binding.tvQuestionMeta.text = "#${detail.question_id}번째 문답  ${detail.date}${daysText}"
+            binding.tvQuestionMeta.text = "#${detail.questionId}번째 문답  ${detail.date}${daysText}"
 
             val myId = tokenManager.getUserId()?.toIntOrNull()
             val myAnswer = detail.answers.find { it.user_id.toInt() == myId }

@@ -9,8 +9,8 @@
     <!-- 감정 스티커 -->
     <ImageView
         android:id="@+id/ivEmotionSticker"
-        android:layout_width="120dp"
-        android:layout_height="120dp" />
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
 
     <!-- 이름(나, 어머니 등) -->
     <TextView

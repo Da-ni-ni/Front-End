@@ -34,7 +34,7 @@ class QuestionRepository @Inject constructor(
 
     // 2. 답변 제출
     suspend fun submitAnswer(
-        questionId: Int,
+        questionId: Long,
         request: SubmitAnswerRequest
     ): Result<SubmitAnswerResponse> {
         return try {
@@ -67,7 +67,7 @@ class QuestionRepository @Inject constructor(
 
     // 4. 답변 수정 (PUT)
     suspend fun updateAnswer(
-        questionId: Int,
+        questionId: Long,
         request: UpdateAnswerRequest
     ): Result<UpdateAnswerResponse> {
         return try {
@@ -84,7 +84,7 @@ class QuestionRepository @Inject constructor(
     }
 
     // 5. 답변 삭제 (DELETE)
-    suspend fun deleteAnswer(questionId: Int): Result<DeleteAnswerResponse> {
+    suspend fun deleteAnswer(questionId: Long): Result<DeleteAnswerResponse> {
         return try {
             val response = api.deleteAnswer(questionId)  // questionId를 전달
             if (response.isSuccessful) {
@@ -113,7 +113,7 @@ class QuestionRepository @Inject constructor(
 //        }
 //    }
 //}
-    suspend fun getQuestionDetail(questionId: Int): Result<QuestionDetailResponse> {
+    suspend fun getQuestionDetail(questionId: Long): Result<QuestionDetailResponse> {
         return try {
             val response = api.getQuestionDetail(questionId)
             if (response.isSuccessful) {

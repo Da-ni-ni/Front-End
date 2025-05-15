@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_paper"
+    android:background="@color/gray0"
     android:padding="24dp">
 
     <ImageView
@@ -21,23 +21,34 @@
         android:id="@+id/tv_Top_log"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="오늘의 감정을 표현해주세요"
+        android:text="오늘의 감정을 선택해주세요!!"
         style="@style/Area_Top_title"
         android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+    
+    <TextView
+        android:id="@+id/tv_small_explaing"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="감정을 선택하셔야, 가족들의 감정을 한 곳에서 볼 수 있습니다!"
+        android:textAppearance="@style/Explain_detail_gray2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_Top_log"/>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_popup_area"
-        android:layout_width="300dp"
+        android:layout_width="305dp"
         android:layout_height="650dp"
-        android:background="@drawable/back_paper"
-        android:layout_marginTop="40dp"
+        android:background="@color/gray0"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Top_log">
+        app:layout_constraintTop_toBottomOf="@+id/tv_small_explaing">
 
 
         <GridLayout
@@ -61,8 +72,8 @@
 
                 <ImageView
                     android:id="@+id/ivJoy"
-                    android:layout_width="140dp"
-                    android:layout_height="150dp"
+                    android:layout_width="170dp"
+                    android:layout_height="165dp"
                     android:src="@drawable/ic_joy"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -89,8 +100,8 @@
 
                 <ImageView
                     android:id="@+id/ivSad"
-                    android:layout_width="140dp"
-                    android:layout_height="150dp"
+                    android:layout_width="170dp"
+                    android:layout_height="165dp"
                     android:src="@drawable/ic_sad"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -117,8 +128,8 @@
 
                 <ImageView
                     android:id="@+id/ivTired"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="170dp"
+                    android:layout_height="165dp"
                     android:src="@drawable/ic_tired"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -145,8 +156,8 @@
 
                 <ImageView
                     android:id="@+id/ivMissed"
-                    android:layout_width="135dp"
-                    android:layout_height="145dp"
+                    android:layout_width="170dp"
+                    android:layout_height="165dp"
                     android:src="@drawable/ic_missed"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -174,8 +185,8 @@
 
                 <ImageView
                     android:id="@+id/ivAngry"
-                    android:layout_width="120dp"
-                    android:layout_height="140dp"
+                    android:layout_width="170dp"
+                    android:layout_height="165dp"
                     android:src="@drawable/ic_angry"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -202,8 +213,8 @@
 
                 <ImageView
                     android:id="@+id/ivComfort"
-                    android:layout_width="145dp"
-                    android:layout_height="140dp"
+                    android:layout_width="170dp"
+                    android:layout_height="165dp"
                     android:src="@drawable/ic_comfort"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

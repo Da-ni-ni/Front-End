@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.main_oper_except_emotion.R
 import com.example.main_oper_except_emotion.databinding.FragmentDailyAnswerBinding
 import dagger.hilt.android.AndroidEntryPoint
 import main_oper_except_emotion.TokenManager
@@ -73,13 +72,13 @@ class DailyAnswerFragment : Fragment() {
         // 🔹 오늘의 질문 + 상세 답변 로드
         viewModel.loadTodayQuestion()
         viewModel.todayQuestion.observe(viewLifecycleOwner) { question ->
-            question.question_id?.let { viewModel.loadQuestionDetail(it) }
+            question.questionId?.let { viewModel.loadQuestionDetail(it) }
 
         }
 
         // ✅ 2. 서버 응답 시 내 답변 + 가족 답변 표시
         viewModel.questionDetail.observe(viewLifecycleOwner) { detail ->
-            binding.tvQuestionText.text = detail.daily_question
+            binding.tvQuestionText.text = detail.dailyQuestion
 
             // 가족 N일차 계산
             val startDate = tokenManager.getStartDate()
@@ -91,7 +90,7 @@ class DailyAnswerFragment : Fragment() {
                 " · 우리 가족 ${diff}일 차"
             } ?: ""
 
-            binding.tvQuestionMeta.text = "#${detail.question_id}번째 문답  ${detail.date}${daysText}"
+            binding.tvQuestionMeta.text = "#${detail.questionId}번째 문답  ${detail.date}${daysText}"
 
             // 내 답변 서버 기준으로 덮어쓰기
             val myId = tokenManager.getUserId()?.toLongOrNull()

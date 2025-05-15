@@ -6,6 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="main_oper_except_emotion.ui.name.MyNameChangeFragment">
 
+
+
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_Emotion"
         android:layout_width="0dp"
@@ -14,10 +17,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:title="닉네임 변경"
+        app:title="내 닉네임 변경"
+        app:titleCentered="true"
         app:titleTextAppearance="@style/Toolbar_title"
         tools:layout_editor_absoluteY="-7dp"
         app:navigationIcon="@drawable/ic_left_arrow"/>
+
+    <TextView
+        android:id="@+id/tv_caption_nickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/Caption_title"
+        android:text="닉네임"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf ="@+id/toolbar_Emotion"/>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,17 +44,16 @@
         android:layout_marginEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_Emotion">
+        app:layout_constraintTop_toBottomOf="@+id/tv_caption_nickname">
 
         <EditText
             android:id="@+id/et_new_nickname"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:padding="12dp"
             android:layout_marginTop="10dp"
             android:inputType="text"
-            android:hint="새 이름"
-            android:textSize="18dp"
+            android:hint="  새 이름"
+
             android:importantForAutofill="no"
             android:textAppearance="@style/Edit_Title"
             android:background="@drawable/selector_invite_link_edit_text"
@@ -50,9 +64,9 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_next"
-        android:layout_width="160dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:layout_marginBottom="15dp"

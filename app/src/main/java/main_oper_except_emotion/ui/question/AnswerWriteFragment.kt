@@ -11,15 +11,10 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.main_oper_except_emotion.R
 import com.example.main_oper_except_emotion.databinding.FragmentAnswerWriteBinding
-import com.example.main_oper_except_emotion.databinding.FragmentDailyQuestionBinding
 import dagger.hilt.android.AndroidEntryPoint
-import main_oper_except_emotion.Answer
 import main_oper_except_emotion.TokenManager
-import main_oper_except_emotion.requestandresponse.question.QuestionDetailResponse
 import main_oper_except_emotion.requestandresponse.question.SubmitAnswerRequest
-import main_oper_except_emotion.ui.diary.WeekBoardFragmentDirections
 import main_oper_except_emotion.viewmodel.QuestionViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -74,19 +69,20 @@ class AnswerWriteFragment : Fragment() {
         binding.btnSubmit.setOnClickListener {
             val answerText = binding.etMyanswer.text.toString().trim()
             if (answerText.isEmpty()) {
-                Toast.makeText(requireContext(), "답변을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "답변이 작성됐습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val questionId = viewModel.todayQuestion.value?.question_id ?: 0
+            val questionId = viewModel.todayQuestion.value?.questionId ?: 0
             // 답변 제출 (서버 연동 없이 로컬 데이터로 처리)
             viewModel.submitAnswer(questionId, SubmitAnswerRequest(answerText))
             viewModel.updateLocalMyAnswer(answerText)
             // 테스트용
-            viewModel.fakesubmitAnswer(SubmitAnswerRequest(answerText))
 
             // 상세 페이지로 이동
-            val action = AnswerWriteFragmentDirections.actionAnswerWriteFragmentToDailyQuestionFragment(questionId)
+            val action = AnswerWriteFragmentDirections.actionAnswerWriteFragmentToDailyQuestionFragment(
+                questionId.toInt()
+            )
             findNavController().navigate(action)
         }
 
@@ -94,9 +90,9 @@ class AnswerWriteFragment : Fragment() {
             AlertDialog.Builder(requireContext())
                 .setTitle("답변을 삭제할까요?")
                 .setPositiveButton("삭제") { _, _ ->
-                    val questionId = viewModel.todayQuestion.value?.question_id ?: 0
+                    val questionId = viewModel.todayQuestion.value?.questionId?: 0
                     viewModel.deleteAnswer(questionId)
-                    viewModel.fakedeleteAnswer()// 로컬 데이터에서 답변 삭제
+
                 }
                 .setNegativeButton("취소", null)
                 .show()

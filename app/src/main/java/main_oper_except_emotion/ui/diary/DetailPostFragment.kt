@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -25,15 +26,20 @@ import main_oper_except_emotion.requestandresponse.diary.CreateCommentRequest
 import main_oper_except_emotion.requestandresponse.diary.UpdateCommentRequest
 import main_oper_except_emotion.viewmodel.DiaryViewModel
 import java.time.LocalDate
+import kotlinx.coroutines.flow.collectLatest
+import main_oper_except_emotion.requestandresponse.diary.UpdateDiaryRequest
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
+
 
 @AndroidEntryPoint
 class DetailPostFragment : Fragment() {
 
     private var _binding: FragmentDetailPostBinding? = null
     private val binding get() = _binding!!
+    private val args: DetailPostFragmentArgs by navArgs()
 
-    //클릭시 dailyId를 받는다.
-    private val args: FragmentDetailPostBinding by navArgs()
     private val viewModel: DiaryViewModel by viewModels()
 
     override fun onCreateView(
@@ -44,28 +50,92 @@ class DetailPostFragment : Fragment() {
         return binding.root
     }
 
+    // 수정된 부분만 발췌합니다. 전체는 유지됩니다.
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dailyId = arguments?.getInt("dailyId") ?: return
+        // 1. dailyId 결정: Safe Args → selectedDailyId 순으로 사용
+        val dailyId = when (args.source) {
+            "write" -> args.dailyId
+            else -> viewModel.selectedDailyId.value
+        } ?: return // dailyId가 없으면 종료
+
+        // 2. 상세 조회 호출
         viewModel.getPostDetail(dailyId)
 
-        binding.btnLike.setOnClickListener {
-            viewModel.toggleLike(dailyId)
-        }
+        val myUserId = viewModel.getMyUserId()
 
-        binding.btnPostComment.setOnClickListener {
-            val commentText = binding.etCommentInput.text.toString().trim()
-            if (commentText.isNotEmpty()) {
-                val today = LocalDate.now().toString()
-                val request = CreateCommentRequest(date = today, comment = commentText)
-                viewModel.addComment(dailyId, request)
-                binding.etCommentInput.setText("")
-                Toast.makeText(requireContext(), "댓글이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+        // 3. 이후 기존 postDetail observe 로직 유지
+        viewModel.postDetail.observe(viewLifecycleOwner) { detail ->
+            detail?.let {
+                binding.tvAuthor.text = it.authorName
+                val dateTime = LocalDateTime.parse(it.date)
+                val formattedTime = dateTime.format(DateTimeFormatter.ofPattern("a h:mm", Locale.KOREA))
+                binding.tvTime.text = formattedTime
+                binding.tvContent.text = it.content
+                binding.commentContainer.removeAllViews()
+
+                if (it.userId == myUserId) {
+                    binding.btnEditDiary.visibility = View.VISIBLE
+                    binding.btnDeleteDiary.visibility = View.VISIBLE
+                } else {
+                    binding.btnEditDiary.visibility = View.GONE
+                    binding.btnDeleteDiary.visibility = View.GONE
+                }
+
+                it.comments.forEach { comment ->
+                    val commentLayout = LinearLayout(requireContext()).apply {
+                        orientation = LinearLayout.HORIZONTAL
+                        setPadding(0, 8, 0, 8)
+                    }
+
+                    val tvComment = TextView(requireContext()).apply {
+                        text = "- ${comment.authorName}: ${comment.content}"
+                        layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
+                    }
+
+                    commentLayout.addView(tvComment)
+
+                    if (comment.userId == myUserId) {
+                        val btnEdit = Button(requireContext()).apply {
+                            text = "수정"
+                            setOnClickListener {
+                                showEditDialog(dailyId, comment.commentId, comment.content)
+                            }
+                        }
+
+                        val btnDelete = Button(requireContext()).apply {
+                            text = "삭제"
+                            setOnClickListener {
+                                AlertDialog.Builder(requireContext())
+                                    .setTitle("댓글 삭제")
+                                    .setMessage("정말 이 댓글을 삭제할까요?")
+                                    .setPositiveButton("삭제") { _, _ ->
+                                        viewModel.deleteComment(dailyId, comment.commentId)
+                                        viewModel.getPostDetail(dailyId)
+                                        Toast.makeText(requireContext(), "댓글 삭제됨", Toast.LENGTH_SHORT).show()
+                                    }
+                                    .setNegativeButton("취소", null)
+                                    .show()
+                            }
+                        }
+
+                        commentLayout.addView(btnEdit)
+                        commentLayout.addView(btnDelete)
+                    }
+
+                    binding.commentContainer.addView(commentLayout)
+                }
             }
         }
 
+        // 수정 버튼
+        binding.btnEditDiary.setOnClickListener {
+            showUpdateDiaryDialog(dailyId)
+        }
+
+        // 삭제 버튼
         binding.btnDeleteDiary.setOnClickListener {
             AlertDialog.Builder(requireContext())
                 .setTitle("일기를 삭제하시겠습니까?")
@@ -78,70 +148,9 @@ class DetailPostFragment : Fragment() {
                 .setNegativeButton("취소", null)
                 .show()
         }
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.postDetail.collectLatest { detail ->
-                detail?.let {
-                    binding.tvAuthor.text = it.name
-                    binding.tvTime.text = it.time
-                    binding.tvContent.text = it.content
-
-                    binding.commentContainer.removeAllViews()
-
-                    it.comments.forEach { comment ->
-                        val commentLayout = LinearLayout(requireContext()).apply {
-                            orientation = LinearLayout.HORIZONTAL
-                            setPadding(0, 8, 0, 8)
-                        }
-
-                        val tvComment = TextView(requireContext()).apply {
-                            text = "- ${comment.name}: ${comment.comment}"
-                            layoutParams = LinearLayout.LayoutParams(
-                                0,
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
-                                1f
-                            )
-                        }
-
-                        val btnEdit = Button(requireContext()).apply {
-                            text = "수정"
-                            setOnClickListener {
-                                showEditDialog(dailyId, comment.comment_id, comment.comment)
-                            }
-                        }
-
-                        val btnDelete = Button(requireContext()).apply {
-                            text = "삭제"
-                            setOnClickListener {
-                                AlertDialog.Builder(requireContext())
-                                    .setTitle("댓글 삭제")
-                                    .setMessage("정말 이 댓글을 삭제할까요?")
-                                    .setPositiveButton("삭제") { _, _ ->
-                                        viewModel.deleteComment(dailyId, comment.comment_id)
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "댓글 삭제됨",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                    .setNegativeButton("취소", null)
-                                    .show()
-                            }
-                        }
-
-                        commentLayout.addView(tvComment)
-                        commentLayout.addView(btnEdit)
-                        commentLayout.addView(btnDelete)
-
-                        binding.commentContainer.addView(commentLayout)
-                    }
-                }
-            }
-        }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun showEditDialog(dailyId: Int, commentId: Int, currentContent: String) {
+    private fun showEditDialog(dailyId: Long, commentId: Long, currentContent: String) {
         val input = EditText(requireContext()).apply {
             setText(currentContent)
             setSelection(currentContent.length)
@@ -153,10 +162,31 @@ class DetailPostFragment : Fragment() {
             .setPositiveButton("확인") { _, _ ->
                 val newContent = input.text.toString().trim()
                 if (newContent.isNotEmpty()) {
-                    val currentDate = LocalDate.now().toString()
-                    val request = UpdateCommentRequest(date = currentDate, comment = newContent)
+                    val request = UpdateCommentRequest(newContent)
                     viewModel.updateComment(dailyId, commentId, request)
+                    viewModel.getPostDetail(dailyId)
                     Toast.makeText(requireContext(), "수정됨", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("취소", null)
+            .show()
+    }
+
+    private fun showUpdateDiaryDialog(dailyId: Long) {
+        val input = EditText(requireContext()).apply {
+            hint = "새로운 일기 내용을 입력하세요"
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("일기 수정")
+            .setView(input)
+            .setPositiveButton("수정") { _, _ ->
+                val newContent = input.text.toString().trim()
+                if (newContent.isNotEmpty()) {
+                    val request = UpdateDiaryRequest(newContent)
+                    viewModel.updateDiary(dailyId, request)
+                    viewModel.getPostDetail(dailyId)
+                    Toast.makeText(requireContext(), "일기 수정 완료", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("취소", null)

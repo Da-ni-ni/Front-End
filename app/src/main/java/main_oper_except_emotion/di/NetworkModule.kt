@@ -3,6 +3,9 @@ package com.example.appdanini.di
 import com.example.appdanini.data.model.remote.network.EmotionApi
 import com.example.appdanini.util.AuthInterceptor
 import com.example.appdanini.util.TokenAuthenticator
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,12 +21,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "https://ce935491-363e-4a9e-9d36-d95c076c9aef.mock.pstmn.io/"
+    private const val BASE_URL = "https://58e82444-ec96-478b-83c9-58ba3bff9111.mock.pstmn.io/"
 
     @Provides
     @Singleton
@@ -37,6 +39,14 @@ object NetworkModule {
     @Singleton
     fun provideAuthInterceptor(tokenManager: TokenManager): AuthInterceptor {
         return AuthInterceptor(tokenManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGson(): Gson {
+        return GsonBuilder()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES) // ✅ snake_case <-> camelCase 변환
+            .create()
     }
 
     @Provides
@@ -55,11 +65,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient): Retrofit {
+    fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 

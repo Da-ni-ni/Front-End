@@ -5,7 +5,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import main_oper_except_emotion.requestandresponse.emotion.Emotion
 import org.json.JSONObject
 import java.time.LocalDate
 import java.util.Base64
@@ -24,7 +23,7 @@ class TokenManager @Inject constructor(
         private const val INVITE_CODE_SUBMITTED_KEY = "invite_code_submitted" // 🔥 추가
         private const val GROUP_SCORE = "group_score"
         private const val PERSONAL_SCORE = "personal_score"
-        private const val GROUP_ID = "group_id"
+        private const val GROUP_ID = "groupdId"
         private const val EMOTION_SUBMIT_DATE_KEY = "emotion_submit_date" // 날짜 기준
         private const val EMOTION_SUBMIT_TIMESTAMP_KEY = "emotion_submit_timestamp" // 시간 기준
         private const val EMOTION_COOLDOWN_HOURS = 12L // 제출 후 다시 뜨게 하려면 몇 시간?
@@ -53,7 +52,7 @@ class TokenManager @Inject constructor(
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getUserIdFromToken(): Int? {
+    fun getUserIdFromToken(): Long? {
         return try {
             val token = getAccessToken() ?: return null
             val parts = token.split(".")
@@ -62,7 +61,7 @@ class TokenManager @Inject constructor(
             val padded = payload.padEnd(payload.length + (4 - payload.length % 4) % 4, '=')
             val decoded = Base64.getUrlDecoder().decode(padded)
             val json = JSONObject(String(decoded))
-            json.getInt("user_id")  // 실제 키 이름은 payload 확인 필요
+            json.getLong("userId") // 실제 필드명이 "userId"인지 확인 필요
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -91,9 +90,9 @@ class TokenManager @Inject constructor(
 
 
     // 그룹 아이디 저장
-    fun saveGroupId(group_id: Int) {
+    fun saveGroupId(group_id: Long) {
         prefs.edit()
-            .putInt(GROUP_ID, group_id)
+            .putLong(GROUP_ID, group_id)
             .apply()
     }
 
@@ -104,16 +103,11 @@ class TokenManager @Inject constructor(
             .apply()
     }
 
-
-    // 가족들 닉네임
-    fun saveNickname(userId: Int, nickname: String) {
-        prefs.edit().putString("nickname_$userId", nickname).apply()
+    fun saveEmotionId(emotionId : Long){
+        prefs.edit()
+            .putLong("emotion_id", emotionId)
     }
 
-    // 닉네임 얻기
-    fun getNickname(userId: Int): String? {
-        return prefs.getString("nickname_$userId", null)
-    }
 
 
     // 감정 제출 날짜와 시간을 저장하는 함수
@@ -146,9 +140,14 @@ class TokenManager @Inject constructor(
     }
 
 
+
     // 유저 네임 저장
     fun saveUserName(name: String) {
         prefs.edit().putString("name", name).apply()
+    }
+
+    fun getEmotionId() : Long{
+        return prefs.getLong("emotionId",0)
     }
 
 
@@ -160,7 +159,7 @@ class TokenManager @Inject constructor(
     fun getInviteCode(): String? = prefs.getString(INVITE_CODE_KEY, null)
     fun getGroupScore(): Int = prefs.getInt(GROUP_SCORE, 0)
     fun getPersonalScore(): Int = prefs.getInt(PERSONAL_SCORE, 0)
-    fun getGroupId(): Int = prefs.getInt(GROUP_ID, 0)
+    fun getGroupId(): Long = prefs.getLong(GROUP_ID, 0)
 
     fun clearTokens() {
         prefs.edit().clear().apply()

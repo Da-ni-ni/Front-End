@@ -1,7 +1,9 @@
 package main_oper_except_emotion.ui.question
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +20,7 @@ class MonthlyQuestionAdapter(
 //    위 코드에서는 question_id가 같으면 같은 질문으로 판단
     object : DiffUtil.ItemCallback<MonthlyQuestion>() {
         override fun areItemsTheSame(oldItem: MonthlyQuestion, newItem: MonthlyQuestion) =
-            oldItem.question_id == newItem.question_id
+            oldItem.questionId == newItem.questionId
 
         override fun areContentsTheSame(oldItem: MonthlyQuestion, newItem: MonthlyQuestion) =
             oldItem == newItem
@@ -28,11 +30,12 @@ class MonthlyQuestionAdapter(
 //    ViewBinding을 써서 XML의 TextView 등을 바로 접근 가능
     inner class QuestionViewHolder(private val binding: ItemMonthlyQuestionBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(item: MonthlyQuestion) {
-            binding.tvDate.text = item.date
+            binding.tvDate.text = item.date.toString()
             binding.tvQuestion.text = item.question
             binding.root.setOnClickListener {
-                onItemClick(item.question_id)
+                onItemClick(item.questionId.toInt())
             }
         }
     }

@@ -132,9 +132,6 @@
         <action
             android:id="@+id/action_weekBoardFragment_to_detailPostFragment"
             app:destination="@id/detailPostFragment">
-            <argument
-                android:name="dailyId"
-                app:argType="integer" />
         </action>
     </fragment>
 
@@ -149,6 +146,12 @@
         <action
             android:id="@+id/action_writeFragment_to_weekBoardFragment"
             app:destination="@id/weekBoardFragment" />
+        <action
+            android:id="@+id/action_writeFragment_self"
+            app:destination="@id/writeFragment" />
+        <action
+            android:id="@+id/action_writeFragment_to_detailPostFragment"
+            app:destination="@id/detailPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/answerWriteFragment"
@@ -166,6 +169,8 @@
                 app:argType="integer" /> <!-- argument도 안전하게 지정 -->
         </action>
     </fragment>
+
+
     <fragment
         android:id="@+id/detailPostFragment"
         android:name="main_oper_except_emotion.ui.diary.DetailPostFragment"
@@ -173,6 +178,13 @@
         <action
             android:id="@+id/action_detailPostFragment_to_writeFragment"
             app:destination="@id/writeFragment" />
+        <argument
+            android:name="source"
+            app:argType="string"
+            android:defaultValue="unknown" />
+        <argument
+            android:name="dailyId"
+            app:argType="long" />
     </fragment>
 
 

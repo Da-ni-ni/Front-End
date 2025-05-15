@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.activityViewModels
 import com.example.main_oper_except_emotion.databinding.FragmentPersonalfamilynameBinding
 import dagger.hilt.android.AndroidEntryPoint
 import main_oper_except_emotion.TokenManager
+import main_oper_except_emotion.requestandresponse.emotion.getImageRes
 import main_oper_except_emotion.viewmodel.EmotionViewModel
 import javax.inject.Inject
 
@@ -39,20 +41,37 @@ class PersonalFamilyNameFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        val user_id = arguments?.getInt("user_id") ?: return
-        val name = arguments?.getString("name") ?: return // getInt에서 getString으로 변경
+        val emotionId = arguments?.getLong("emotionId") ?: return
+        val originalName = arguments?.getString("userName") ?: return //
+        val nameExpress = "현재 가족 구성원의 닉네임은 ${originalName}입니다."
 
         // ✅ 기존 이름 표시
     // 본래 이름 : 닉네임이 있으면 닉네임, 없으면 본명
-        val originalName = tokenManager.getNickname(user_id) ?: name ?: "기본 이름"
-        binding.tvOriginalName.text = originalName
+
+        viewModel.fetchPersonalEmotion(emotionId)
+
+        // 감정 응답 옵저빙
+        viewModel.personalEmotionDetail.observe(viewLifecycleOwner) { detail ->
+            if (detail != null && detail.emotionId == emotionId) {
+                // 이미지 리소스 설정
+                val imageResId = getImageRes(detail.emotionType)  // 감정에 따라 이미지 리소스 가져오는 함수
+                binding.ivDefaultEmotion.setImageResource(imageResId)
+
+                // 이름도 표시 (닉네임 or 본명)
+                binding.tvOriginalName.setText(nameExpress)
+
+            }
+        }
 
         binding.btNext.setOnClickListener {
-            val nickname = binding.etNewGroupName.text.toString().trim()
+            val nickname = binding.etNewName.text.toString().trim()
             if (nickname.isNotBlank()) {
-                tokenManager.saveNickname(user_id, nickname)
+                viewModel.updateOtherMemberName(emotionId,nickname)
                 requireActivity().onBackPressedDispatcher.onBackPressed()
+            }else{
+                Toast.makeText(requireContext(), "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
             }
+
         }
     }
 

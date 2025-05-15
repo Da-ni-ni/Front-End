@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_paper"
-    android:fillViewport="true">
+    android:background="@color/gray0">
 
-    <LinearLayout
+    <!-- 상단 툴바 -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_Emotion"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/gray0"
+        app:title="감정 게시판"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/Toolbar_title" />
 
-        <!-- 툴바 -->
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar_Emotion"
+    <!-- 본문 스크롤 뷰 -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:fillViewport="true"
+        android:padding="16dp"
+        android:background="@color/gray0"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            app:titleTextAppearance="@style/Toolbar_title" />
+            <!-- 상단 제목 -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="우리 가족, 오늘의 감정"
+                style="@style/Area_Top_title"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="16dp" />
 
-        <!-- 제목 -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="우리 가족, 오늘의 감정"
-            style="@style/Top_Log"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="16dp" />
-
-        <TextView
-            android:id="@+id/tvLastUpdated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2025.04.01 13:00 기준 갱신"
-            style="@style/Top_detail"
-            android:layout_gravity="end"
-            android:layout_marginTop="24dp" />
-
+            <TextView
+                android:id="@+id/tvLastUpdated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2025.05.11 13:20 기준 갱신"
+                style="@style/Explain_detail_gray2"
+                android:layout_gravity="end"
+                android:layout_marginTop="5dp" />
 
                 <GridLayout
                     android:id="@+id/glEmotionGrid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:alignmentMode="alignMargins"
-                    android:background="@drawable/back_paper"
+                    android:background="@color/gray0"
                     android:columnCount="2"
                     android:columnOrderPreserved="false"
                     android:rowCount="5">
@@ -276,6 +287,6 @@
                 </GridLayout>
 
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

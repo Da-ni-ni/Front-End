@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/back_paper"
+    android:background="@color/gray0"
     tools:context="main_oper_except_emotion.ui.emotion.MyEmotionChangeFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -14,19 +14,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:title="감정 수정"
+        app:title="감정 수정/닉네임 수정 "
+        app:titleCentered="true"
         app:navigationIcon="@drawable/ic_left_arrow"
         app:titleTextAppearance="@style/Toolbar_title"
         tools:layout_editor_absoluteY="-7dp" />
+
+    <TextView
+        android:id="@+id/tv_small_family_name_logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="감정 체인지"
+        style="@style/Top_explain_body_title"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf ="@+id/toolbar_Emotion"/>
+
+    <TextView
+        android:id="@+id/tv_gray_family_ex2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="하루에도 수시로 바뀌는 감정을 표현해주세요!\n최상단 감정을 누르면 내 닉네임도 바꿀 수 있어요!"
+        style="@style/Explain_detail_gray2"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_small_family_name_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="226dp" />
+
+
 
     <ImageView
     android:id="@+id/currentEmotion"
     android:layout_width="150dp"
     android:layout_height="150dp"
     android:src="@drawable/ic_joy"
+    android:layout_marginTop="20dp"
     app:layout_constraintBottom_toTopOf="@id/gridEmotion"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv_gray_family_ex2"
     />
 
     <TextView
@@ -39,18 +68,19 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentEmotion"/>
+        app:layout_constraintTop_toTopOf="@+id/tv_gray_family_ex2"
+        android:layout_marginTop="160dp"/>
 
 
 
     <!-- 감정 그리드 -->
     <GridLayout
         android:id="@+id/gridEmotion"
-        android:layout_width="0dp"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:columnCount="2"
         android:useDefaultMargins="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="188dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar_Emotion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -108,8 +138,8 @@
             android:padding="8dp">
 
             <ImageView
-                android:layout_width="155dp"
-                android:layout_height="155dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:src="@drawable/ic_tired" />
 
             <TextView
@@ -130,14 +160,14 @@
             android:padding="8dp">
 
             <ImageView
-                android:layout_width="145dp"
-                android:layout_height="145dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:src="@drawable/ic_missed" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+
                 android:text="보고픔이"
                 style="@style/Very_small_logo"  />
 
@@ -153,9 +183,8 @@
             android:padding="8dp">
 
             <ImageView
-
-                android:layout_width="135dp"
-                android:layout_height="135dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:src="@drawable/ic_angry" />
 
             <TextView
@@ -176,8 +205,8 @@
             android:padding="8dp">
 
             <ImageView
-                android:layout_width="160dp"
-                android:layout_height="145dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:src="@drawable/ic_comfort" />
 
             <TextView

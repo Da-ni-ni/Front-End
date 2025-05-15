@@ -32,8 +32,8 @@ interface DiaryApi {
 
     // 게시글 상세 조회
     @Headers("Need-Auth: true")
-    @GET("/api/v1/board/{dailyId}")
-    suspend fun getPostDetail(@Path("dailyId") id: Int): Response<PostDetailResponse>
+    @GET("/api/v1/daily/{dailyId}")
+    suspend fun getPostDetail(@Path("dailyId") id: Long): Response<PostDetailResponse>
 
     @Headers("Need-Auth: true")
     @POST("/api/v1/daily")
@@ -45,7 +45,7 @@ interface DiaryApi {
     @Headers("Need-Auth: true")
     @PUT("/api/v1/daily/{dailyId}")
     suspend fun updateDiary(
-        @Path("dailyId") dailyId: Int,
+        @Path("dailyId") dailyId: Long,
         @Body request: UpdateDiaryRequest
     ): Response<UpdateDiaryResponse>
 
@@ -53,13 +53,13 @@ interface DiaryApi {
     @Headers("Need-Auth: true")
     @DELETE("/api/v1/daily/{dailyId}")
     suspend fun deleteDiary(
-        @Path("dailyId") dailyId: Int):Response<DeleteDiaryResponse>
+        @Path("dailyId") dailyId: Long):Response<DeleteDiaryResponse>
 
     // 댓글 등록
     @Headers("Need-Auth: true")
     @POST("/api/v1/daily/{dailyId}/comments")
     suspend fun registerComment(
-        @Path("dailyId") dailyId: Int,
+        @Path("dailyId") dailyId : Long,
         @Body request : CreateCommentRequest
     ): Response<CreateCommentResponse>
 
@@ -67,8 +67,8 @@ interface DiaryApi {
     @Headers("Need-Auth: true")
     @PUT("/api/v1/daily/{dailyId}/comments/{commentId}")
     suspend fun updateComment(
-        @Path("dailyId") dailyId : Int,
-        @Path("commentId") commentId : Int,
+        @Path("dailyId") dailyId : Long,
+        @Path("commentId") commentId : Long,
         @Body request : UpdateCommentRequest
     ): Response<UpdateCommentResponse>
 
@@ -76,14 +76,12 @@ interface DiaryApi {
     @Headers("Need-Auth: true")
     @DELETE("/api/v1/daily/{dailyId}/comments/{commentId}")
     suspend fun deleteComment(
-        @Path("dailyId") dailyId : Int,
-        @Path("commentId") commentId : Int,
+        @Path("dailyId") dailyId : Long,
+        @Path("commentId") commentId : Long,
     ) : Response<DeleteCommentResponse>
 
     // 좋아요 토글
     @Headers("Need-Auth: true")
     @POST("/api/v1/daily/{dailyId}")
-    suspend fun toggleLike(
-        @Path("dailyId") dailyId : Int,
-    ) : Response<LikeYouResponse>
+    suspend fun toggleLike(@Path("dailyId") dailyId: Long): Response<LikeYouResponse>
 }

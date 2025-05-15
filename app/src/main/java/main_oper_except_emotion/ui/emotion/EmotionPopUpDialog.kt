@@ -2,6 +2,7 @@ package main_oper_except_emotion.ui.emotion
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +15,10 @@ import com.example.main_oper_except_emotion.R
 import com.example.main_oper_except_emotion.databinding.DialogEmotionPopupBinding
 import dagger.hilt.android.AndroidEntryPoint
 import main_oper_except_emotion.TokenManager
-import main_oper_except_emotion.requestandresponse.emotion.Emotion
+import main_oper_except_emotion.requestandresponse.emotion.EmotionType
 import main_oper_except_emotion.viewmodel.EmotionViewModel
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class EmotionPopupDialog : DialogFragment() {
@@ -38,6 +40,7 @@ class EmotionPopupDialog : DialogFragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.resetSubmitStatus()
         setupEmotionListeners()
         observeSubmitResult()
 
@@ -51,12 +54,12 @@ class EmotionPopupDialog : DialogFragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setupEmotionListeners() {
         val emotionMap = mapOf(
-            binding.emotionJoy to Emotion.JOY,
-            binding.emotionSad to Emotion.SAD,
-            binding.emotionMissed to Emotion.MISSED,
-            binding.emotionTired to Emotion.TIRED,
-            binding.emotionAngry to Emotion.ANGRY,
-            binding.emotionComfort to Emotion.COMFORT
+            binding.emotionJoy to EmotionType.HAPPY,
+            binding.emotionSad to EmotionType.SAD,
+            binding.emotionMissed to EmotionType.MISSING,
+            binding.emotionTired to EmotionType.TIRED,
+            binding.emotionAngry to EmotionType.ANGRY,
+            binding.emotionComfort to EmotionType.RELAXED
         )
 
         emotionMap.forEach { (view, emotion) ->
@@ -68,25 +71,29 @@ class EmotionPopupDialog : DialogFragment() {
 
                 // 2. 서버에 감정 전송 (성공 여부와 무관하게 일단 진행)
                 viewModel.submitEmotion(emotion)
+
             }
         }
+
+        viewModel.submittedEmotionId.observe(viewLifecycleOwner) { emotionId ->
+            Log.d("Emotion", "서버로부터 받은 감정 ID: $emotionId")
+            tokenManager.saveEmotionId(emotionId)
+        }
+
+
+
     }
 
     private fun observeSubmitResult() {
         viewModel.submitSuccess.observe(viewLifecycleOwner) { success ->
-//            if (success == true) {
-//                Toast.makeText(requireContext(), "감정이 등록되었습니다", Toast.LENGTH_SHORT).show()
-//                dismiss()
-//            } else if (success == false) {
-//                Toast.makeText(requireContext(), "감정 등록 실패", Toast.LENGTH_SHORT).show()
-//                enableEmotionButtons()
-//            }
             if (success == true) {
                 Toast.makeText(requireContext(), "감정이 등록되었습니다", Toast.LENGTH_SHORT).show()
-            } else {
-//                Toast.makeText(requireContext(), "감정 등록 실패", Toast.LENGTH_SHORT).show()
+                dismiss()
+            } else if (success == false) {
+                Toast.makeText(requireContext(), "감정 등록 실패", Toast.LENGTH_SHORT).show()
+                enableEmotionButtons()
             }
-            dismiss()
+
         }
     }
 
@@ -111,6 +118,8 @@ class EmotionPopupDialog : DialogFragment() {
             binding.emotionComfort
         ).forEach { it.isEnabled = true }
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

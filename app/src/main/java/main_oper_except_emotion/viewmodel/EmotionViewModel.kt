@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import main_oper_except_emotion.requestandresponse.emotion.Emotion
 import main_oper_except_emotion.TokenManager
 import main_oper_except_emotion.repository.EmotionRepository
 import main_oper_except_emotion.requestandresponse.emotion.EmotionSubmitRequest
+import main_oper_except_emotion.requestandresponse.emotion.EmotionType
 import main_oper_except_emotion.requestandresponse.emotion.GetTodayFamilyEmotionResponse
 import main_oper_except_emotion.requestandresponse.emotion.UpdateEmotionRequest
 import main_oper_except_emotion.requestandresponse.emotion.PersonalEmotionDetailResponse
@@ -27,14 +27,17 @@ class EmotionViewModel @Inject constructor(
     private val repository: EmotionRepository
 ) : ViewModel() {
 
+    private val _submittedEmotionId = MutableLiveData<Long>()
+    val submittedEmotionId: LiveData<Long> = _submittedEmotionId
+
     private val _showEmotionPopup = MutableLiveData<Boolean>()
     val showEmotionPopup: LiveData<Boolean> = _showEmotionPopup
 
-    private val _myEmotion = MutableLiveData<Emotion?>()
-    val myEmotion: LiveData<Emotion?> = _myEmotion
+    private val _myEmotion = MutableLiveData<EmotionType?>()
+    val myEmotion: LiveData<EmotionType?> = _myEmotion
 
-    private val _submitSuccess = MutableLiveData<Boolean>()
-    val submitSuccess: LiveData<Boolean> = _submitSuccess
+    private val _submitSuccess = MutableLiveData<Boolean?>()
+    val submitSuccess: MutableLiveData<Boolean?> = _submitSuccess
 
     private val _familyEmotions = MutableLiveData<List<GetTodayFamilyEmotionResponse>>()
     val familyEmotions: LiveData<List<GetTodayFamilyEmotionResponse>> = _familyEmotions
@@ -51,8 +54,8 @@ class EmotionViewModel @Inject constructor(
     private val _personalEmotionDetail = MutableLiveData<PersonalEmotionDetailResponse>()
     val personalEmotionDetail: LiveData<PersonalEmotionDetailResponse> = _personalEmotionDetail
 
-    private val _currentEmotion = MutableLiveData<Emotion>(Emotion.JOY) // 기본 감정 설정
-    val currentEmotion: LiveData<Emotion> get() = _currentEmotion
+    private val _currentEmotion = MutableLiveData<EmotionType>(EmotionType.HAPPY) // 기본 감정 설정
+    val currentEmotion: LiveData<EmotionType> get() = _currentEmotion
 
 
     // 팝업창 설정
@@ -62,11 +65,13 @@ class EmotionViewModel @Inject constructor(
         val now = LocalTime.now()
         val isAfter6AM = now.isAfter(LocalTime.of(6, 0))
         _showEmotionPopup.value = !submittedToday || isAfter6AM
+
+
     }
 
     // 감정 등록
     @RequiresApi(Build.VERSION_CODES.O)
-    fun submitEmotion(emotion: Emotion) {
+    fun submitEmotion(emotion: EmotionType) {
         _myEmotion.value = emotion
 
         viewModelScope.launch {
@@ -75,6 +80,7 @@ class EmotionViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     tokenManager.markEmotionSubmittedNow()
                     _submitSuccess.value = true
+                    _submittedEmotionId.value = response.body()?.emotionId  // ✅ 여기!
                     Log.d("EmotionViewModel", "등록 성공: ${response.body()?.createdAt}")
                 } else {
                     Log.e("EmotionViewModel", "감정 등록 실패: ${response.code()} ${response.errorBody()?.string()}")
@@ -87,12 +93,17 @@ class EmotionViewModel @Inject constructor(
         }
     }
 
-    fun setMyEmotion(emotion: Emotion) {
+    fun setMyEmotion(emotion: EmotionType) {
         _currentEmotion.value = emotion // 감정 상태 저장
     }
 
-    fun getCurrentEmotion(): Emotion {
-        return _currentEmotion.value ?: Emotion.JOY // 기본값 반환
+    fun getCurrentEmotion(): EmotionType {
+        return _currentEmotion.value ?: EmotionType.HAPPY // 기본값 반환
+    }
+
+    fun resetSubmitStatus() {
+        _submitSuccess.value = null
+
     }
 
 
@@ -102,29 +113,29 @@ class EmotionViewModel @Inject constructor(
     fun loadFamilyEmotions() {
         viewModelScope.launch {
             try {
-                val response = repository.getTodayFamilyEmotions()
+                // 어차피 그룹 아이디는 저장돼있음
+                val groupId = tokenManager.getGroupId()
+                val response = repository.getTodayFamilyEmotions(groupId = groupId)
                 if (response.isSuccessful) {
                     val responseList = response.body() ?: emptyList()
                     _familyEmotions.value = responseList
 
-                    // ✅ 닉네임 캐싱
+                    // 닉네임 캐싱
                     responseList.forEach { member ->
                         val nickname = member.nickname ?: member.name
-                        tokenManager.saveNickname(member.user_id, nickname)
                     }
 
-                    // ✅ 내 감정 따로 추출 (getUserIdFromToken 사용)
+                    // 내 감정 추출
                     val myId = tokenManager.getUserIdFromToken()
                     if (myId != null) {
-                        // 내 감정 객체 찾기
-                        val myEmotionObj = responseList.firstOrNull { it.user_id == myId }
+                        val myEmotionObj = responseList.firstOrNull { it.emotionId.toInt().toLong() == myId }
                         _myEmotion.value = myEmotionObj?.emotion
                     } else {
-                        Log.w("EmotionViewModel", "userId 디코딩 실패 → 내 감정 분리 불가")
-                        _myEmotion.value = null  // 혹은 UI에서 적절한 기본값 처리
+                        Log.w("EmotionViewModel", "userId 디코딩 실패")
+                        _myEmotion.value = null
                     }
                 } else {
-                    Log.e("EmotionViewModel", "가족 감정 불러오기 실패: ${response.code()} ${response.errorBody()?.string()}")
+                    Log.e("EmotionViewModel", "가족 감정 불러오기 실패: ${response.code()}")
                 }
             } catch (e: Exception) {
                 Log.e("EmotionViewModel", "가족 감정 요청 오류: ${e.localizedMessage}")
@@ -134,30 +145,34 @@ class EmotionViewModel @Inject constructor(
 
     // 감정 수정
     @RequiresApi(Build.VERSION_CODES.O)
-    fun updateEmotion(emotion: Emotion) {
-        _myEmotion.value = emotion              // ✅ UI에 즉시 반영 (옵티미스틱)
+    fun updateEmotion(emotion: EmotionType) {
+        _myEmotion.value = emotion // ✅ UI에 즉시 반영 (옵티미스틱)
 
         viewModelScope.launch {
             try {
-                val name = tokenManager.getUserName()
-                val request = UpdateEmotionRequest(name = name, emotion = emotion)
-                val response = repository.updateEmotion(request)
-                if (!response.isSuccessful) {
-                    Log.e("EmotionViewModel", "감정 수정 실패: ${response.code()} ${response.errorBody()?.string()}")
-                    // _myEmotion.value = previousEmotion // ❌ 실패 시 롤백
+                personalEmotionDetail.value?.let {
+                    val nickName = it.nickName
+                    val request = UpdateEmotionRequest(nickName = nickName, emotion)
+                    val response = repository.updateEmotion(request)
+
+                    if (!response.isSuccessful) {
+                        Log.e("EmotionViewModel", "감정 수정 실패: ${response.code()} ${response.errorBody()?.string()}")
+                        // _myEmotion.value = previousEmotion // ❌ 실패 시 롤백
+                    }
                 }
             } catch (e: Exception) {
                 Log.e("EmotionViewModel", "감정 수정 오류: ${e.localizedMessage}")
-                // _myEmotion.value = previousEmotion  // ❌ 예외 발생 시 롤백
+                // _myEmotion.value = previousEmotion // ❌ 예외 발생 시 롤백
             }
         }
     }
 
+
     // 개인 감정 조회
-    fun fetchPersonalEmotion(user_id: Int) {
+    fun fetchPersonalEmotion(emotionId: Long) {
         viewModelScope.launch {
             try {
-                val response = repository.getPersonalEmotion(user_id)
+                val response = repository.getPersonalEmotion(emotionId)
                 if (response.isSuccessful) {
                     response.body()?.let {
                         _personalEmotionDetail.value = it
@@ -219,14 +234,13 @@ class EmotionViewModel @Inject constructor(
     }
 
     // 가족 구성원 이름 수정
-    fun updateOtherMemberName(userId: Int, new_name: String) {
-        tokenManager.saveNickname(userId, new_name)    // ✅ 옵티미스틱 반영
+    fun updateOtherMemberName(emotionId: Long, nickName: String) { // ✅ 옵티미스틱 반영
         _nameUpdateSuccess.value = true
 
         viewModelScope.launch {
             try {
                 // 서버에서 응답 받기
-                val response = repository.updateOtherMemberName(userId, new_name)
+                val response = repository.updateOtherMemberName(emotionId, nickName)
                 if (response.isSuccessful) {
                     _nameUpdateSuccess.value = true  // 이름 수정 성공
                 } else {

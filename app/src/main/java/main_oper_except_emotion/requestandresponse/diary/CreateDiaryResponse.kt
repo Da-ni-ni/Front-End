@@ -1,7 +1,9 @@
 package main_oper_except_emotion.requestandresponse.diary
 
+import java.time.LocalDateTime
+
 data class CreateDiaryResponse(
-    val daily_id : Int,
+    val dailyId : Long,
     val createdAt : String
 
 )

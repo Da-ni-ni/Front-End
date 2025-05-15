@@ -1,7 +1,10 @@
 package main_oper_except_emotion.requestandresponse.name
 
+import java.time.LocalDateTime
+
 data class PersonalNameResponse(
-    val user_id : Int?,
+    val emotionId : Long,
+    val nickName : Long?,
     val name: String,
-    val updatedAt : String
+    val updatedAt : LocalDateTime
 )

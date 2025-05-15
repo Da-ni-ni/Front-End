@@ -28,11 +28,6 @@ class WriteFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: DiaryViewModel by viewModels()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,33 +47,35 @@ class WriteFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        // 답변 제출
+        // 답변 작성 버튼 클릭
         binding.btWriteBtn.setOnClickListener {
-
             val content = binding.etWrite.text.toString().trim()
-            val currentTime = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-            val formattedTime = currentTime.format(formatter)
-            val requestCreateDiary = CreateDiaryRequest(content,formattedTime)
 
             if (content.isEmpty()) {
                 Toast.makeText(requireContext(), "내용을 입력하세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            viewModel.createDiary(requestCreateDiary)
+            val currentTime = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm") // 또는 ISO 형식으로 변경 가능
+            val formattedTime = currentTime.format(formatter)
 
+            val requestCreateDiary = CreateDiaryRequest(content)
+            viewModel.createDiary(requestCreateDiary)
         }
 
-        // 주간 게시판으로 넘어가서, 금일 답변 조회
-        viewModel.diaryCreated.observe(viewLifecycleOwner) { isSuccess ->
-            if (isSuccess) {
-                Toast.makeText(requireContext(), "작성 완료!", Toast.LENGTH_SHORT).show()
-                val action = WriteFragmentDirections.actionWriteFragmentToWeekBoardFragment()
+        // 작성 완료 시 이동
+        viewModel.diaryCreatedResponse.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                val dailyId = it.dailyId
+                val action = WriteFragmentDirections.actionWriteFragmentToDetailPostFragment(dailyId)
                 findNavController().navigate(action)
-            } else {
             }
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

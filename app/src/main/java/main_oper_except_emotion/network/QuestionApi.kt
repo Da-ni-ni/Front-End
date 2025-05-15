@@ -26,7 +26,7 @@ import retrofit2.http.Query
         // 2. 답변 제출
         @POST("/api/v1/question/{questionId}/answers")
         suspend fun submitAnswer(
-            @Path("questionId") questionId: Int,  // questionId가 Path로 전달
+            @Path("questionId") questionId: Long,  // questionId가 Path로 전달
             @Body request: SubmitAnswerRequest
         ): Response<SubmitAnswerResponse>
 
@@ -40,19 +40,20 @@ import retrofit2.http.Query
         // 4. 상세 조회
         @GET("/api/v1/question/{questionId}/answers")
         suspend fun getQuestionDetail(
-            @Path("questionId") questionId: Int  // questionId가 Path로 전달
+            @Path("questionId") questionId: Long  // questionId가 Path로 전달
         ): Response<QuestionDetailResponse>
+
 
         // 5. 답변 수정 (PUT)
         @PUT("/api/v1/question/{questionId}/answer")
         suspend fun updateAnswer(
-            @Path("questionId") questionId: Int,  // questionId가 Path로 전달
+            @Path("questionId") questionId: Long,  // questionId가 Path로 전달
             @Body request: UpdateAnswerRequest
         ): Response<UpdateAnswerResponse>
 
         // 6. 답변 삭제 (DELETE)
         @DELETE("/api/v1/question/{questionId}/answer")
         suspend fun deleteAnswer(
-            @Path("questionId") questionId: Int  // questionId가 Path로 전달
+            @Path("questionId") questionId: Long // questionId가 Path로 전달
         ): Response<DeleteAnswerResponse>
     }
