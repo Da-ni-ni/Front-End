@@ -17,7 +17,6 @@ import main_oper_except_emotion.ui.auth.AuthActivity
 import main_oper_except_emotion.viewmodel.AuthViewModel
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
