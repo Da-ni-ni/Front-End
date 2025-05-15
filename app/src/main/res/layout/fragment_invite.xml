@@ -1,0 +1,132 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="main_oper_except_emotion.ui.invite.InviteFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_Invite1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:titleCentered="true"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:navigationIcon="@drawable/ic_left_arrow"
+        app:title="가족 초대"
+        app:titleTextAppearance="@style/Toolbar_title"
+        tools:layout_editor_absoluteY="-5dp" />
+
+    <TextView
+        android:id="@+id/tv_small_family_logo1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="가족 그룹 생성"
+        style="@style/Top_explain_body_title"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf ="@+id/toolbar_Invite1"/>
+
+    <TextView
+        android:id="@+id/tv_gray_family_ex1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="공유 받은 초대 코드를 입력해서 \n가족분께 초대 요청을 보내세요!\n가족 그룹을 형성할 수 있습니다!"
+        style="@style/Explain_detail_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_small_family_logo1"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_very_small_family_logo1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/Caption_title"
+        android:text="초대 코드"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf ="@+id/tv_gray_family_ex1"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_constraint"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_very_small_family_logo1">
+
+        <EditText
+            android:id="@+id/et_invite_code"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:hint="  초대 코드를 입력해주세요"
+            android:textAppearance="@style/Edit_Title"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/edit_text_background_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <Button
+            android:id="@+id/bt_chk"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_mini_share_button"
+            android:text="다음"
+            style="@style/Button_Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/et_invite_code"
+            app:layout_constraintTop_toTopOf="@id/cl_constraint"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/bt_invite_chk"
+        style="@style/Button_Title"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/button_background_intro"
+        android:text="공유 받은 초대 코드가 없으신 분"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_constraint"/>
+
+    <TextView
+        android:id="@+id/explain_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Very_mini_explain"
+        android:text="코드를 생성해서, 가족들을 초대할 수 있습니다."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_invite_chk"
+        android:layout_marginTop="20dp"/>
+
+    <View
+        android:layout_width="260dp"
+        android:layout_height="0.8dp"
+        android:background="@color/gray300"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/explain_detail"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

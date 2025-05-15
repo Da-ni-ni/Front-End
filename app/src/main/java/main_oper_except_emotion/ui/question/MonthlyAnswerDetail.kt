@@ -65,7 +65,7 @@ class MonthlyAnswerDetailFragment : Fragment() {
             binding.tvQuestionMeta.text = "#${detail.questionId}번째 문답  ${detail.date}${daysText}"
 
             val myId = tokenManager.getUserId()?.toIntOrNull()
-            val myAnswer = detail.answers.find { it.user_id.toInt() == myId }
+            val myAnswer = detail.answers.find { it.userId.toInt() == myId }
             binding.tvMyAnswer.text = myAnswer?.answer ?: "아직 작성하지 않았어요"
 
             val nameViews = listOf(
@@ -93,7 +93,7 @@ class MonthlyAnswerDetailFragment : Fragment() {
                 binding.tvOtherAnswer10
             )
 
-            val otherAnswers = detail.answers.filter { it.user_id.toInt() != myId }
+            val otherAnswers = detail.answers.filter { it.userId.toInt() != myId }
 
             for (i in nameViews.indices) {
                 if (i < otherAnswers.size) {

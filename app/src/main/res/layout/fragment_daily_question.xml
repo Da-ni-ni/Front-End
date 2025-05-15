@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/back_paper"
+    android:background="@color/gray0"
     tools:context="main_oper_except_emotion.ui.question.DailyQuestionFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -15,7 +15,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:title="일일 문답"
-        app:navigationIcon="@drawable/ic_calendar"
+        android:background="@color/sky_blue"
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/calendar_svgrepo_com"
         app:titleTextAppearance="@style/Toolbar_title"
         tools:layout_editor_absoluteY="-7dp" />
 
@@ -24,58 +26,75 @@
         android:text="우리 가족 10일 차"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Top_detail"
+        style="@style/Explain_detail_gray2"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_Emotion" />
 
     <TextView
+        android:id="@+id/tv_small_explain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="매일 갱신되는 질문에 답변해주세요.\n 서로를 더 잘 이해할 수 있습니다."
-        style="@style/Top_detail"
+        style="@style/Explain_detail_gray2"
         app:layout_constraintTop_toBottomOf="@+id/tv_app_start_date"/>
-    <FrameLayout
-        android:id="@+id/view_card_area"
-        android:layout_width="300dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/back_paper"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@id/tv_app_start_date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+
 
         <TextView
             android:id="@+id/tv_daily_question"
             style="@style/Top_black_right"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:padding="8dp"
-            android:background="@drawable/back_paper"
+            android:background="@color/gray0"
             android:text="# 응답을 받아오는 중..."
-            android:fontFamily="@font/someone"
-            android:textSize="30dp"/>
-    </FrameLayout>
+            android:fontFamily="@font/kangwon"
+            android:textSize="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_small_explain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <ImageView
-        android:id="@+id/ig_thunder"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:src="@drawable/ic_thudner"
+    <TextView
+        android:id="@+id/tv_caption_nickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/Caption_title"
+        android:text="일일 답변"
+        app:layout_constraintTop_toBottomOf="@id/tv_daily_question"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <EditText
+        android:id="@+id/et_myAnswer"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_caption_nickname"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_card_area"/>
+        android:layout_marginTop="10dp"
+        android:hint="  답변을 입력해주세요!"
+        android:background="@drawable/edit_text_background_comment"
+        style="@style/Edit_Title"/>
 
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_next"
+        style="@style/Button_Title"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:text="답변 제출"
+        android:background="@drawable/button_background_intro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_myAnswer"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

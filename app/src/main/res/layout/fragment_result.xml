@@ -1,0 +1,93 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="main_oper_except_emotion.ui.closeness.ResultFragment">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_Invite1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/ic_left_arrow"
+        app:title="테스트 결과"
+        app:titleTextAppearance="@style/Toolbar_title"
+        tools:layout_editor_absoluteY="-7dp" />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_area"
+        android:layout_width="330dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/card_closeness_area"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Invite1">
+
+        <TextView
+            android:id="@+id/closeness_result_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="가족 친밀도 지수/개인 "
+            android:textSize="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            style="@style/Area_Top_title"
+            app:layout_constraintStart_toStartOf="@+id/card_area"
+            app:layout_constraintEnd_toEndOf="@id/card_area"
+            app:layout_constraintTop_toTopOf="@+id/card_area" />
+
+        <View
+            android:id="@+id/gray_bar"
+            android:layout_width="30dp"
+            android:layout_height="4dp"
+            android:background="@color/gray0"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="@+id/card_area"
+            app:layout_constraintEnd_toEndOf="@+id/card_area"
+            app:layout_constraintTop_toBottomOf="@+id/closeness_result_title"/>
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="점수"
+            style="@style/Score"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="@id/card_area"
+            app:layout_constraintEnd_toEndOf="@id/card_area"
+            app:layout_constraintTop_toBottomOf="@+id/gray_bar"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_home_next"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:text="다음"
+        android:enabled="true"
+        android:background="@drawable/button_background_intro"
+        style="@style/Button_Title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

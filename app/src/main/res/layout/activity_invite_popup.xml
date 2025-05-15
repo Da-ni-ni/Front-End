@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="main_oper_except_emotion.ui.invite.InvitePopupActivity">
+    <TextView
+        android:id="@+id/tvInviteMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="xx님의 요청을 수락하시겠습니까?"
+        android:gravity="center"
+        android:fontFamily="@font/gowundodum"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnAccept"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:text="수락"
+        android:textAppearance="@style/Button_Title"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tvInviteMessage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnReject"
+        android:background="@drawable/button_popup_btn"
+        android:layout_marginEnd="8dp"/>
+
+    <Button
+        android:id="@+id/btnReject"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="거절"
+        android:textAppearance="@style/Button_Title"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tvInviteMessage"
+        app:layout_constraintStart_toEndOf="@id/btnAccept"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/button_popup_btn"
+        android:layout_marginStart="8dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

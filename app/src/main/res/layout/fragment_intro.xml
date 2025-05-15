@@ -1,0 +1,63 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="main_oper_except_emotion.ui.auth.IntroFragment">
+
+
+    <ImageView
+        android:id="@+id/iv_intro_picture"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:src="@drawable/ic_intro_logo"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id ="@+id/tv_main_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다니니"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/kangwon"
+        android:textSize="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_intro_picture"
+        />
+
+
+
+
+    <Button
+        android:id="@+id/bt_login"
+        style="@style/Button_Title"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/button_background_intro"
+        android:text="로그인"
+        app:layout_constraintTop_toBottomOf="@id/iv_intro_picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/bt_join"
+        style="@style/Button_Title"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_background_intro"
+        android:text="회원가입"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_login"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

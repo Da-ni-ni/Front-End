@@ -1,11 +1,13 @@
 package main_oper_except_emotion.ui.question
 
+import android.R
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
@@ -36,23 +38,35 @@ class MonthQuestionListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 툴바 설정
         val toolbar = binding.toolbarEmotion
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
+        // 어댑터 설정
         adapter = MonthlyQuestionAdapter { questionId ->
             val action = MonthQuestionListFragmentDirections
-                .actionMonthQuestionListFragmentToMonthlyAnswerDetailFragment(questionId)
+                .actionMonthQuestionListFragmentToMonthlyAnswerDetailFragment(questionId.toLong())
             findNavController().navigate(action)
         }
-
         binding.recyclerMonthlyQuestions.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerMonthlyQuestions.adapter = adapter
-        binding.tvEmptyMessage.visibility = View.GONE
 
-        // ✅ ViewModel + 서버 연동
+        // ✅ 스피너 드롭다운 설정
+        val monthItems = listOf("2025년 5월", "2025년 4월", "2025년 3월")
+        val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, monthItems)
+        binding.spinnerWeekSelector.setAdapter(spinnerAdapter)
+
+        binding.spinnerWeekSelector.setOnItemClickListener { _, _, position, _ ->
+            val selected = monthItems[position]
+            val year = selected.substring(0, 4).toInt()
+            val month = selected.substringAfter("년 ").substringBefore("월").trim().toInt()
+            viewModel.loadMonthlyQna(year, month)
+        }
+
+        // 기본 로딩
         val year = LocalDate.now().year
         val month = LocalDate.now().monthValue
         viewModel.loadMonthlyQna(year, month)
@@ -69,3 +83,4 @@ class MonthQuestionListFragment : Fragment() {
         _binding = null
     }
 }
+

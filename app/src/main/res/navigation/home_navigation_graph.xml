@@ -65,18 +65,19 @@
         <action
             android:id="@+id/action_dailyQuestionFragment_to_homeFragment2"
             app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_dailyQuestionFragment_to_dailyAnswerFragment"
-            app:destination="@id/dailyAnswerFragment" />
+
+
         <action
             android:id="@+id/action_dailyQuestionFragment_to_weekBoardFragment"
             app:destination="@id/weekBoardFragment" />
         <action
-            android:id="@+id/action_dailyQuestionFragment_to_answerWriteFragment"
-            app:destination="@id/answerWriteFragment" />
-        <action
-            android:id="@+id/action_dailyQuestionFragment_to_answerWriteFragment2"
-            app:destination="@id/answerWriteFragment" />
+            android:id="@+id/action_dailyQuestionFragment_to_monthlyAnswerDetailFragment"
+            app:destination="@id/monthlyAnswerDetailFragment">
+        <argument
+            android:name="questionId"
+            app:argType="long" />
+        </action>
+
     </fragment>
 
     <!-- 월간 문답 리스트 -->
@@ -90,18 +91,15 @@
             app:destination="@id/monthlyAnswerDetailFragment" />
         <argument
             android:name="questionId"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
+
     <fragment
         android:id="@+id/groupNameFragment"
         android:name="main_oper_except_emotion.ui.name.GroupNameFragment"
         android:label="fragment_group_name"
         tools:layout="@layout/fragment_group_name" />
-    <fragment
-        android:id="@+id/dailyAnswerFragment"
-        android:name="main_oper_except_emotion.ui.question.DailyAnswerFragment"
-        android:label="fragment_daily_answer"
-        tools:layout="@layout/fragment_daily_answer" />
+
 
     <fragment
         android:id="@+id/monthlyAnswerDetailFragment"
@@ -109,10 +107,11 @@
         android:label="MonthlyAnswerDetailFragment">
         <argument
             android:name="questionId"
-            app:argType="integer" />
+            app:argType="long" />
 
 
     </fragment>
+
     <fragment
         android:id="@+id/weekBoardFragment"
         android:name="main_oper_except_emotion.ui.diary.WeekBoardFragment"
@@ -152,22 +151,6 @@
         <action
             android:id="@+id/action_writeFragment_to_detailPostFragment"
             app:destination="@id/detailPostFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/answerWriteFragment"
-        android:name="main_oper_except_emotion.ui.question.AnswerWriteFragment"
-        android:label="fragment_answer_write"
-        tools:layout="@layout/fragment_answer_write" >
-        <argument
-            android:name="questionId"
-            app:argType="integer" /> <!-- 매개변수의 타입을 명확히 지정 -->
-        <action
-            android:id="@+id/action_answerWriteFragment_to_dailyQuestionFragment"
-            app:destination="@id/dailyQuestionFragment" >
-            <argument
-                android:name="questionId"
-                app:argType="integer" /> <!-- argument도 안전하게 지정 -->
-        </action>
     </fragment>
 
 

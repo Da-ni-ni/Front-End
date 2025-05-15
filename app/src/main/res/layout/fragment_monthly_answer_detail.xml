@@ -1,525 +1,547 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:padding="16dp"
-    android:background="@drawable/back_paper"
-    >
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
+    android:background="@color/gray0"
+    tools:context="main_oper_except_emotion.ui.question.DailyAnswerFragment">
+
+    <!-- 고정된 툴바 -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_Emotion"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        app:title="일일 문답 페이지"
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/ic_left_arrow"
+        app:titleTextAppearance="@style/Toolbar_title"
+        android:background="@color/sky_blue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- 툴바 -->
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar_Emotion"
+    <!-- 스크롤 가능한 영역 -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:padding="16dp"
+        android:background="@color/gray0"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_Emotion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="문답"
-            app:navigationIcon="@drawable/ic_left_arrow"
-            app:titleTextAppearance="@style/Toolbar_title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_height="wrap_content">
 
-        <!-- 질문 텍스트 -->
 
-        <!-- 질문 날짜 및 번호 -->
-        <TextView
-            android:id="@+id/tvQuestionText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:gravity="center"
-            android:lineSpacingExtra="4dp"
-            android:text="가장 소중한 추억은 무엇인가요?"
-            android:textAppearance="@style/Top_black_right"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_Emotion" />
-
-        <TextView
-            android:id="@+id/tvQuestionMeta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="#3번째 문답  2025.05.11"
-            android:textAppearance="@style/Top_detail"
-            app:layout_constraintTop_toBottomOf="@id/tvQuestionText"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- 나의 답변 섹션 -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/myAnswerSection"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@id/tvQuestionMeta"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
-                android:id="@+id/tv_MyName"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvQuestionText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="나"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="@+id/myAnswerSection"
+                android:layout_marginTop="28dp"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp"
+                android:text="가장 소중한 추억은 무엇인가요?"
+                android:textAppearance="@style/dailyQuestion"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_MyAnswer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="5dp"
-                android:text="now"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="@+id/myAnswerSection"
-                app:layout_constraintTop_toBottomOf="@id/tv_MyName"/>
-
-            <View
-                android:id="@+id/separator_my_vs_family"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_MyAnswer"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/otherAnswerSection1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="12dp"
-            app:layout_constraintTop_toBottomOf="@id/myAnswerSection"
-            app:layout_constraintStart_toStartOf="parent">
-
+            <!-- 질문 메타 -->
             <TextView
-                android:id="@+id/tv_OtherName1"
+                android:id="@+id/tvQuestionMeta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="어머니"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="@+id/otherAnswerSection1"
-                app:layout_constraintTop_toTopOf="@id/otherAnswerSection1"
-
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_OtherAnswer1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="..."
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="@+id/otherAnswerSection1"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherName1"/>
-
-
-            <View
-                android:id="@+id/separator_my_vs_family1"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer1"
+                android:text="#3번째 문답  2025.05.11"
+                android:textAppearance="@style/Explain_detail_gray2"
+                app:layout_constraintTop_toBottomOf="@id/tvQuestionText"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- 나의 답변 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/myAnswerSection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/tvQuestionMeta"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_MyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="나"
+                    style="@style/Answer_author"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="10dp"/>
+
+                <TextView
+                    android:id="@+id/tv_MyAnswer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="25dp"
+                    android:text="지금 이 순간"
+                    style="@style/Answer_author"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_MyName"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <View
+                    android:id="@+id/separator_my_vs_family"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_MyAnswer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/otherAnswerSection1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/myAnswerSection"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_OtherName1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="어머니"
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_OtherAnswer1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="아이가 태어났을 때"
+                    style="@style/Answer_author"
+
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherName1"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/separator_my_vs_family1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/otherAnswerSection2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/otherAnswerSection1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_OtherName2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름2"
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_OtherAnswer2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherName2"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/separator_my_vs_family2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/otherAnswerSection3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/otherAnswerSection2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_OtherName3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름3"
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_OtherAnswer3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherName3"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/separator_my_vs_family3"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/otherAnswerSection4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/otherAnswerSection3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_OtherName4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름4"
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_OtherAnswer4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherName4"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/separator_my_vs_family4"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/otherAnswerSection5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/otherAnswerSection4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_OtherName5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름5"
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_OtherAnswer5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherName5"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/separator_my_vs_family5"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/otherAnswerSection6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/otherAnswerSection5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_OtherName6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름6"
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_OtherAnswer6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherName6"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/separator_my_vs_family6"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/otherAnswerSection7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/otherAnswerSection6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_OtherName7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름7"
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_OtherAnswer7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherName7"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/separator_my_vs_family7"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/otherAnswerSection8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/otherAnswerSection7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_OtherName8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름8"
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_OtherAnswer8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherName8"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/separator_my_vs_family8"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/otherAnswerSection9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/otherAnswerSection8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_OtherName9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름9"
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_OtherAnswer9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherName9"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/separator_my_vs_family9"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/otherAnswerSection10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/otherAnswerSection8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_OtherName10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름9"
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_OtherAnswer10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    style="@style/Answer_author"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherName10"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/separator_my_vs_family10"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            <!-- 👇 이 아래로 각 otherAnswerSection 도 동일 패턴 적용 (1~10) -->
+            <!-- 각 section 내의 tv_OtherNameX / tv_OtherAnswerX 에도
+                 layout_weight 제거하고 constraint 설정 (Start_toStart, Start_toEnd, End_toEnd 등) -->
+
+            <!-- ✨ 필요하시면 1~10 전체 구간도 정리해드릴게요 (지금처럼 반복 구성된 구조) -->
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/otherAnswerSection2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/otherAnswerSection1"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/tv_OtherName2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="아버지"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_OtherAnswer2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="..."
-                style="@style/Answer_author"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherName2"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/separator_my_vs_family2"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- 아래는 3~10까지 반복적으로 구성 (이전 섹션에 연결) -->
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/otherAnswerSection3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/otherAnswerSection2"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/tv_OtherName3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="형"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_OtherAnswer3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="..."
-                style="@style/Answer_author"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherName3"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/separator_my_vs_family3"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/otherAnswerSection4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/otherAnswerSection3"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/tv_OtherName4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="동생"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_OtherAnswer4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="..."
-                style="@style/Answer_author"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherName4"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/separator_my_vs_family4"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/otherAnswerSection5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/otherAnswerSection4"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/tv_OtherName5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="누나"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_OtherAnswer5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="..."
-                style="@style/Answer_author"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherName5"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/separator_my_vs_family5"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/otherAnswerSection6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/otherAnswerSection5"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/tv_OtherName6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="이모"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_OtherAnswer6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="..."
-                style="@style/Answer_author"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherName6"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-            <View
-                android:id="@+id/separator_my_vs_family6"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/otherAnswerSection7"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/otherAnswerSection6"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/tv_OtherName7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="고모"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_OtherAnswer7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="..."
-                style="@style/Answer_author"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherName7"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/separator_my_vs_family7"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer7"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/otherAnswerSection8"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/otherAnswerSection7"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/tv_OtherName8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="삼촌"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_OtherAnswer8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="..."
-                android:textColor="@color/black"
-                android:fontFamily="@font/gowundodum"
-                android:textSize="16sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherName8"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/separator_my_vs_family8"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/otherAnswerSection9"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/otherAnswerSection8"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/tv_OtherName9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="사촌"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_OtherAnswer9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="..."
-                style="@style/Answer_author"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherName9"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/separator_my_vs_family9"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer9"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/otherAnswerSection10"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="32dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/otherAnswerSection9"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/tv_OtherName10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="조카"
-                style="@style/Answer_author"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tv_OtherAnswer10"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="..."
-                style="@style/Answer_author"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherName10"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/separator_my_vs_family10"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tv_OtherAnswer10"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

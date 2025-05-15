@@ -27,6 +27,10 @@ class TokenManager @Inject constructor(
         private const val EMOTION_SUBMIT_DATE_KEY = "emotion_submit_date" // 날짜 기준
         private const val EMOTION_SUBMIT_TIMESTAMP_KEY = "emotion_submit_timestamp" // 시간 기준
         private const val EMOTION_COOLDOWN_HOURS = 12L // 제출 후 다시 뜨게 하려면 몇 시간?
+        private const val REQUEST_CODE_KEY = "request_id"
+        private const val MY_NAME_KEY = "my_name"
+        private const val MY_EMAIL = "my_email"
+        private const val TEST_COMPLETED_KEY = "test_completed"
     }
 
     // "auth_prefs"라는 이름의 전용 저장소(SharedPreferences)를 가져와서, 이후 prefs 변수로 토큰을 읽고 쓰도록 준비하는 것
@@ -68,6 +72,21 @@ class TokenManager @Inject constructor(
         }
     }
 
+    fun isInviteCodeSubmitted(): Boolean {
+        return prefs.getBoolean(INVITE_CODE_SUBMITTED_KEY, false)
+    }
+
+    fun markInitialSetupDone() {
+        prefs.edit().putBoolean(INITIAL_SETUP_DONE_KEY, true).apply()
+    }
+
+
+    fun markInviteCodeSubmitted() {
+        prefs.edit().putBoolean(INVITE_CODE_SUBMITTED_KEY, true).apply()
+    }
+
+
+
     // 초대 코드 저장
     fun saveInviteCode(inviteCode: String) {
         prefs.edit()
@@ -75,16 +94,45 @@ class TokenManager @Inject constructor(
             .apply()
     }
 
-    // 친밀도 점수 저장
-    fun saveScore(group_score: Int, personal_score: Int) {
+    fun saveMynameAndEmail(name : String, email : String){
         prefs.edit()
-            .putInt(GROUP_SCORE, group_score)
-            .putInt(PERSONAL_SCORE, personal_score)
+            .putString(MY_NAME_KEY,name)
+            .putString(MY_EMAIL, email)
+            .apply()
+    }
+
+    // 친밀도 점수 저장
+    fun saveScore(group_score: Long, personal_score: Long) {
+        prefs.edit()
+            .putLong(GROUP_SCORE, group_score)
+            .putLong(PERSONAL_SCORE, personal_score)
             .apply()
     }
 
 
-    fun getUserEmail(): String? = prefs.getString("email", null) // 유저 이메일 얻기
+    fun saveAccessTokenOnly(token: String) {
+        prefs.edit()
+            .putString(ACCESS_TOKEN_KEY, token)
+            .apply()
+    }
+
+    fun saveRequestCode(request_id: String) {
+        prefs.edit()
+            .putString(REQUEST_CODE_KEY, request_id)
+            .apply()
+    }
+
+    /** 테스트가 완료되었음을 표시합니다. */
+    fun markTestCompleted() {
+        prefs.edit()
+            .putBoolean(TEST_COMPLETED_KEY, true)
+            .apply()
+    }
+
+
+
+
+
     fun getAccessToken(): String? = prefs.getString(ACCESS_TOKEN_KEY, null) // 토큰 얻기
     fun getRefreshToken(): String? = prefs.getString(REFRESH_TOKEN_KEY, null) // 리스프레시 토큰 얻기
 
@@ -151,7 +199,9 @@ class TokenManager @Inject constructor(
     }
 
 
-    fun getUserName(): String? = prefs.getString("name", null)
+    fun getUserName(): String? = prefs.getString(MY_NAME_KEY, null)
+    fun getUserEmail(): String? = prefs.getString(MY_EMAIL, null)
+
 
     fun getUserId(): String? = prefs.getString("userId", null)
 
@@ -175,5 +225,34 @@ class TokenManager @Inject constructor(
 
     fun clearForceLogoutFlag() {
         prefs.edit().remove(FORCE_LOGOUT_KEY).apply()
+    }
+
+    fun isAccessTokenExpired(): Boolean {
+        val token = getAccessToken() ?: return true
+        val parts = token.split(".")
+        if (parts.size < 2) return true
+
+        return try {
+            val payloadJson =
+                String(android.util.Base64.decode(parts[1], android.util.Base64.URL_SAFE))
+            val exp = JSONObject(payloadJson).optLong("exp", 0L)
+            val now = System.currentTimeMillis() / 1000
+            now > exp
+        } catch (e: Exception) {
+            true
+        }
+    }
+
+    fun isInitialSetupDone(): Boolean {
+        return prefs.getBoolean(INITIAL_SETUP_DONE_KEY, false)
+    }
+
+
+    fun clearSession() {
+        prefs.edit()
+            .remove("access_token")
+            .remove("refresh_token")
+            .remove("force_logout")
+            .apply()
     }
 }

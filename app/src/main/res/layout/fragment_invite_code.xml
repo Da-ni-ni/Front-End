@@ -1,0 +1,102 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="main_oper_except_emotion.ui.invite.InviteCodeFragment">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_InviteCode1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:titleCentered="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:title="가족 초대"
+        app:titleTextAppearance="@style/Toolbar_title"
+        tools:layout_editor_absoluteY="-7dp"
+        app:navigationIcon="@drawable/ic_left_arrow"/>
+
+    <TextView
+        android:id="@+id/tv_small_family_logo1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="초대 코드 생성"
+        style="@style/Top_explain_body_title"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf ="@+id/toolbar_InviteCode1"/>
+
+    <TextView
+        android:id="@+id/tv_gray_family_ex1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="앱에 가장 처음 방문 하신 가족분이신가요?\n초대 코드를 생성해서 가족들을 초대해보세요!\n"
+        style="@style/Explain_detail_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_small_family_logo1"
+        />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_constraint"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_gray_family_ex1">
+
+        <EditText
+            android:id="@+id/et_invite_code"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:hint="  내 초대 코드"
+            android:textAppearance="@style/Edit_Title"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/edit_text_background_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <Button
+            android:id="@+id/bt_copy"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_mini_share_button"
+            android:text="복사"
+            style="@style/Button_Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/et_invite_code"
+            app:layout_constraintTop_toTopOf="@id/cl_constraint"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <Button
+        android:id="@+id/bt_next"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background_intro"
+        style="@style/Button_Title"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp"
+        android:text="다음"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_constraint"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

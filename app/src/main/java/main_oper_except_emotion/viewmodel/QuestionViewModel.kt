@@ -44,6 +44,7 @@ class QuestionViewModel @Inject constructor(
 
 
     // 1. 오늘의 질문 불러오기
+    // 오늘의 질문 갖고 올 때, 질문 아이디도 갖고옴
     fun loadTodayQuestion() {
         viewModelScope.launch {
             val result = repository.getDailyQuestion()

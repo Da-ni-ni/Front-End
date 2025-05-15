@@ -1,4 +1,5 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,8 +9,7 @@
     android:padding="12dp"
     android:clickable="true"
     android:layout_marginTop="15dp"
-    android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@android:color/transparent"> <!-- ✅ 투명 처리 -->
+    android:foreground="?attr/selectableItemBackground"> <!-- ✅ 투명 처리 -->
 
 
     <LinearLayout
@@ -18,6 +18,7 @@
         android:orientation="vertical"
         android:minHeight="60dp"
         android:padding="12dp"
+        android:backgroundTint="@color/gray200"
         android:background="@drawable/question_card">
 
         <TextView
@@ -25,8 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2025.05.11"
-            style="@style/Top_detail"
-            android:textSize="12sp"
+            style="@style/Explain_detail_gray2"
             android:textColor="#999999" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="오늘 가장 기억에 남는 일은?"
-           style="@style/List_Momthly_logo"
+            style="@style/List_Momthly_logo"
             android:layout_marginTop="4dp"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

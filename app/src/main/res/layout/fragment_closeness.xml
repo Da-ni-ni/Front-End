@@ -1,0 +1,133 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="main_oper_except_emotion.ui.closeness.ClosenessFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_InviteCode1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:titleCentered="true"
+        app:title="가족 초대"
+        style="@style/Top_Title"
+        app:titleTextAppearance="@style/Toolbar_title"
+        app:navigationIcon="@drawable/ic_left_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:padding="24dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_InviteCode1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvQuestionNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/gowundodum"
+            android:text="Q1."
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/gowundodum"
+            android:text="우리 가족은 대화를 많이 하는 편이다."
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginTop="55dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnOption1"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:background="@drawable/button_closeness"
+                android:fontFamily="@font/gowundodum" />
+
+            <Button
+                android:id="@+id/btnOption2"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_closeness"
+                android:fontFamily="@font/gowundodum" />
+
+            <Button
+                android:id="@+id/btnOption3"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_closeness"
+                android:fontFamily="@font/gowundodum" />
+
+
+            <Button
+                android:id="@+id/btnOption4"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_closeness"
+                android:fontFamily="@font/gowundodum" />
+
+            <Button
+                android:id="@+id/btnOption5"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_closeness"
+                android:fontFamily="@font/gowundodum" />
+
+            <Button
+                android:id="@+id/btn_next"
+                style="@style/Button_Title"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="105dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/button_background_intro"
+                android:enabled="true"
+                android:text="다음" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:indeterminate="true" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

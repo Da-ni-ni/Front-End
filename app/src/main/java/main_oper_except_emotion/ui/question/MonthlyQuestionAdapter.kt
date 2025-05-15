@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.main_oper_except_emotion.databinding.ItemMonthlyQuestionBinding
 import main_oper_except_emotion.requestandresponse.question.MonthlyQuestion
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MonthlyQuestionAdapter(
 
     // onItemClick: (Int) -> Unit는 → "질문 클릭했을 때 question_id를 넘겨주는 콜백 함수"
-    private val onItemClick: (Int) -> Unit
+    private val onItemClick: (Long) -> Unit
 ) : ListAdapter<MonthlyQuestion, MonthlyQuestionAdapter.QuestionViewHolder>(
 
     // DiffUtil은 새로운 리스트와 기존 리스트의 차이를 계산해서 RecyclerView를 효율적으로 갱신해줌
@@ -30,15 +32,18 @@ class MonthlyQuestionAdapter(
 //    ViewBinding을 써서 XML의 TextView 등을 바로 접근 가능
     inner class QuestionViewHolder(private val binding: ItemMonthlyQuestionBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @RequiresApi(Build.VERSION_CODES.O)
-        fun bind(item: MonthlyQuestion) {
-            binding.tvDate.text = item.date.toString()
-            binding.tvQuestion.text = item.question
-            binding.root.setOnClickListener {
-                onItemClick(item.questionId.toInt())
-            }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun bind(item: MonthlyQuestion) {
+        val parsedDate = LocalDate.parse(item.date) // 예: "2025-05-01"
+        val formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일")
+        binding.tvDate.text = parsedDate.format(formatter)
+
+        binding.tvQuestion.text = item.question
+        binding.root.setOnClickListener {
+            onItemClick(item.questionId)
         }
     }
+}
 //    질문 날짜와 내용 넣고
 //    카드 전체를 눌렀을 때 question_id를 넘김
 
@@ -48,6 +53,7 @@ class MonthlyQuestionAdapter(
         return QuestionViewHolder(binding)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         holder.bind(getItem(position))
     }

@@ -7,23 +7,38 @@
 
     <application
         android:name="main_oper_except_emotion.App"
-    android:allowBackup="true"
-    android:dataExtractionRules="@xml/data_extraction_rules"
-    android:fullBackupContent="@xml/backup_rules"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:theme="@style/Theme.Main_oper_except_emotion"
-    tools:targetApi="31">
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Main_oper_except_emotion"
+        tools:targetApi="31">
+        <activity
+            android:name="main_oper_except_emotion.ui.invite.InvitePopupActivity"
+            android:exported="false" />
+        <activity
+            android:name="main_oper_except_emotion.SplashActivity"
+            android:exported="true"> <!-- exported=true 필수 -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="main_oper_except_emotion.ui.auth.AuthActivity"
+            android:exported="false" />
+        <activity
+            android:name="main_oper_except_emotion.HomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-    <activity
-        android:name="main_oper_except_emotion.HomeActivity"
-        android:exported="true">
-         <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

@@ -1,0 +1,163 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="main_oper_except_emotion.MyPageFragment">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:titleCentered="true"
+        app:title="마이 페이지"
+        android:background="@color/sky_blue"
+        app:titleTextAppearance="@style/Toolbar_title"
+        tools:layout_editor_absoluteY="-7dp"
+        app:navigationIcon="@drawable/ic_left_arrow"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_InviatationLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding = "16dp"
+
+        android:clickable = "true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_login">
+
+        <TextView
+            android:id="@+id/tv_inviteLink"
+            android:text="초대 코드 확인"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Menu_title"
+            app:layout_constraintStart_toStartOf="@id/btn_InviatationLink"
+            app:layout_constraintEnd_toEndOf="@+id/btn_InviatationLink"
+            app:layout_constraintTop_toTopOf="@+id/btn_InviatationLink"/>
+
+        <ImageView
+            android:id ="@+id/ic_arrow_right1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right_arrow"
+            app:layout_constraintEnd_toEndOf="@id/btn_InviatationLink"
+            app:layout_constraintTop_toTopOf="@id/btn_InviatationLink"
+            app:layout_constraintBottom_toBottomOf="@id/btn_InviatationLink"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_closenessTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding = "16dp"
+        android:clickable = "true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/btn_InviatationLink">
+
+        <TextView
+            android:id="@+id/tv_closenessTest"
+            android:text="친밀도 테스트"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Menu_title"
+            app:layout_constraintStart_toStartOf="@id/btn_closenessTest"
+            app:layout_constraintEnd_toEndOf="@+id/btn_closenessTest"
+            app:layout_constraintTop_toTopOf="@+id/btn_closenessTest"/>
+
+        <ImageView
+            android:id ="@+id/ic_arrow_right2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right_arrow"
+            app:layout_constraintEnd_toEndOf="@id/btn_closenessTest"
+            app:layout_constraintTop_toTopOf="@id/btn_closenessTest"
+            app:layout_constraintBottom_toBottomOf="@id/btn_closenessTest"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_inviteRequestList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding = "16dp"
+        android:clickable = "true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/btn_closenessTest">
+
+        <TextView
+            android:id="@+id/tv_inviteRequestList"
+            android:text="초대 요청 현황"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Menu_title"
+            app:layout_constraintStart_toStartOf="@id/btn_inviteRequestList"
+            app:layout_constraintEnd_toEndOf="@+id/btn_inviteRequestList"
+            app:layout_constraintTop_toTopOf="@+id/btn_inviteRequestList"/>
+
+
+        <ImageView
+            android:id ="@+id/ic_arrow_right3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right_arrow"
+            app:layout_constraintEnd_toEndOf="@id/btn_inviteRequestList"
+            app:layout_constraintTop_toTopOf="@id/btn_inviteRequestList"
+            app:layout_constraintBottom_toBottomOf="@id/btn_inviteRequestList" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_logOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding = "16dp"
+        android:clickable = "true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/btn_inviteRequestList">
+
+        <TextView
+            android:id="@+id/tv_logOut"
+            android:text="로그아웃"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Menu_title"
+            app:layout_constraintStart_toStartOf="@id/btn_logOut"
+            app:layout_constraintEnd_toEndOf="@id/btn_logOut"
+            app:layout_constraintTop_toTopOf="@id/btn_logOut"/>
+
+
+        <ImageView
+            android:id ="@+id/ic_arrow_right4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right_arrow"
+            app:layout_constraintEnd_toEndOf="@id/btn_logOut"
+            app:layout_constraintTop_toTopOf="@id/btn_logOut"
+            app:layout_constraintBottom_toBottomOf="@id/btn_logOut"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_navigation_graph"
+    app:startDestination="@id/introFragment">
+
+
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="main_oper_except_emotion.ui.auth.IntroFragment"
+        android:label="fragment_intro"
+        tools:layout="@layout/fragment_intro" >
+        <action
+            android:id="@+id/action_introFragment_to_joinFragment"
+            app:destination="@id/joinFragment" />
+        <action
+            android:id="@+id/action_introFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="main_oper_except_emotion.ui.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_inviteFragment"
+            app:destination="@id/inviteFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_waitInviteFragment"
+            app:destination="@id/waitInviteFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_closenessFragment"
+            app:destination="@id/closenessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinFragment"
+        android:name="main_oper_except_emotion.ui.auth.JoinFragment"
+        android:label="fragment_join"
+        tools:layout="@layout/fragment_join" >
+        <action
+            android:id="@+id/action_joinFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="main_oper_except_emotion.ui.emotion.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/inviteFragment"
+        android:name="main_oper_except_emotion.ui.invite.InviteFragment"
+        android:label="fragment_invite"
+        tools:layout="@layout/fragment_invite" >
+        <action
+            android:id="@+id/action_inviteFragment_to_inviteCodeFragment"
+            app:destination="@id/inviteCodeFragment" />
+        <action
+            android:id="@+id/action_inviteFragment_to_familyNameFragment"
+            app:destination="@id/familyNameFragment" />
+        <action
+            android:id="@+id/action_inviteFragment_to_waitInviteFragment"
+            app:destination="@id/waitInviteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/familyNameFragment"
+        android:name="main_oper_except_emotion.ui.invite.FamilyNameFragment"
+        android:label="fragment_family_name"
+        tools:layout="@layout/fragment_family_name" >
+        <action
+            android:id="@+id/action_familyNameFragment_to_inviteCodeFragment2"
+            app:destination="@id/inviteCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inviteCodeFragment"
+        android:name="main_oper_except_emotion.ui.invite.InviteCodeFragment"
+        android:label="fragment_invite_code"
+        tools:layout="@layout/fragment_invite_code" >
+        <action
+            android:id="@+id/action_inviteCodeFragment_to_closenessIntroductionFragment"
+            app:destination="@id/closenessIntroductionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/waitInviteFragment"
+        android:name="main_oper_except_emotion.ui.invite.WaitInviteFragment"
+        android:label="fragment_wait_invite"
+        tools:layout="@layout/fragment_wait_invite" >
+        <action
+            android:id="@+id/action_waitInviteFragment_to_closenessIntroductionFragment"
+            app:destination="@id/closenessIntroductionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/closenessIntroductionFragment"
+        android:name="main_oper_except_emotion.ui.closeness.ClosenessIntroductionFragment"
+        android:label="fragment_closeness_introduction"
+        tools:layout="@layout/fragment_closeness_introduction" >
+        <action
+            android:id="@+id/action_closenessIntroductionFragment_to_closenessFragment"
+            app:destination="@id/closenessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/closenessFragment"
+        android:name="main_oper_except_emotion.ui.closeness.ClosenessFragment"
+        android:label="fragment_closeness"
+        tools:layout="@layout/fragment_closeness" >
+        <action
+            android:id="@+id/action_closenessFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="main_oper_except_emotion.ui.closeness.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>
