@@ -20,8 +20,7 @@ import javax.inject.Inject
 class SplashActivity : AppCompatActivity() {
 
     private val authViewModel: AuthViewModel by viewModels()
-    @Inject
-    lateinit var tokenManager: TokenManager
+    @Inject lateinit var tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,20 +34,24 @@ class SplashActivity : AppCompatActivity() {
 
     private suspend fun startAppFlow() {
 
-        lifecycleScope.launch {
-            val sessionValid = tryRefreshIfNeeded()
+        // 리프레시 토큰으로 엑세스 토큰 갱신 여부
+        val sessionValid = tryRefreshIfNeeded()
 
-            if (!sessionValid) {
-                tokenManager.clearSession()  // ✅ 전체 초기화
-                goToLogin()
-                return@launch
-            }
+        // 리프레시 토큰 만료
+        if (!sessionValid) {
+            // 토큰 초기화
+            tokenManager.clearSession()
+            goToLogin()
+            return
+        }
 
-            if (tokenManager.isInitialSetupDone()) {
-                goToHome()
-            } else {
-                handleInitialSetupFlow() // ✅ suspend 함수로 변경됨
-            }
+        // 친밀도 테스트 완료시 true로 저장됨
+        if (tokenManager.isInitialSetupDone()) {
+            goToHome()
+
+            // 친밀도 테스트까지 완료 못했을 경우.
+        } else {
+            handleInitialSetupFlow()
         }
     }
 
@@ -92,7 +95,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun goToClosenessIntro() {
         val intent = Intent(this, AuthActivity::class.java)
-        intent.putExtra("start_destination", R.id.closenessFragment)
+        intent.putExtra("start_destination", R.id.closenessIntroductionFragment)
         startActivity(intent)
         finish()
     }
@@ -121,19 +124,24 @@ class SplashActivity : AppCompatActivity() {
         // #2 직접 생성한 초대 코드를 로컬에 저장했다.
         // 가족명을 로컬에 저장하고 있는 것은 최초 생성자임
         // 어차피 가족명이 표시되는 건,
-        // 어차피 승락 이후에, 가족명 수정이 가능한거라, 이대로 둬도 괜찮음
+        // 어차피 초대 승락 이후에나, 가족명 수정이 가능한거라, 이대로 둬도 괜찮음
+        // 즉 피공유자가 이름이 없다는 것은 초대 승락을 받지 않은 상태라는 것
         when {
             hasFamilyName && hasInviteCode -> {
                 goToClosenessIntro()
             }
 
+            // 초대 상태를 체크한다.(이거 체크한다는거 부터가, 초대 요청 보내고, waitinng에서 기다리다가 앱을 종료했다는거임
+            // splash에서 바로, 초대 여부를 확인
+            // 승인 되면, 친밀도 테스트 인트로
+            // 대기 중이면 대기 페이지로
+            // 거절이면 초대 코드 입력 페이지로 넘어가서, 다시 요청하게 만듦
             hasInviteCode && !hasFamilyName -> {
                 val inviteStatus = authViewModel.checkInviteStatus()
                 when (inviteStatus?.status) {
-                    "APPROVED" -> goToHome()
+                    "APPROVED" -> goToClosenessIntro()
                     "WAITING", null -> goToWaitingPage()
                     "REJECTED" -> {
-                        tokenManager.clearSession()
                         goToFamilyInvitePage()
                     }
                 }

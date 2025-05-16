@@ -3,17 +3,15 @@ package main_oper_except_emotion
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.main_oper_except_emotion.R
 import com.example.main_oper_except_emotion.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import main_oper_except_emotion.ui.auth.AuthActivity
+import main_oper_except_emotion.util.TokenManager
 import main_oper_except_emotion.viewmodel.AuthViewModel
 import javax.inject.Inject
 
