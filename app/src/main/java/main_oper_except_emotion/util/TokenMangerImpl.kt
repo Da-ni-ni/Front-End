@@ -1,4 +1,4 @@
-package main_oper_except_emotion
+package main_oper_except_emotion.util
 
 import android.content.Context
 import android.os.Build
@@ -31,6 +31,8 @@ class TokenManager @Inject constructor(
         private const val MY_NAME_KEY = "my_name"
         private const val MY_EMAIL = "my_email"
         private const val TEST_COMPLETED_KEY = "test_completed"
+        private const val PREF_NAME = "app_prefs"
+        private const val KEY_ONBOARDING_SHOWN = "onboarding_shown"
     }
 
     // "auth_prefs"라는 이름의 전용 저장소(SharedPreferences)를 가져와서, 이후 prefs 변수로 토큰을 읽고 쓰도록 준비하는 것
@@ -127,6 +129,16 @@ class TokenManager @Inject constructor(
         prefs.edit()
             .putBoolean(TEST_COMPLETED_KEY, true)
             .apply()
+    }
+
+    fun setOnboardingShown(context: Context, shown: Boolean) {
+        val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        prefs.edit().putBoolean(KEY_ONBOARDING_SHOWN, shown).apply()
+    }
+
+    fun isOnboardingShown(context: Context): Boolean {
+        val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        return prefs.getBoolean(KEY_ONBOARDING_SHOWN, false)
     }
 
 
