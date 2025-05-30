@@ -5,6 +5,6 @@ import java.time.LocalDateTime
 data class GetJoinStatusResponse(
     val requestId: Long,
     val userName: String,
-    val status: RequestStatus,
-    val createdAt: String // ISO 8601 형식으로 들어오므로 String으로 받는 게 일반적
+    val status: String,   // ✅ enum이 아닌 문자열로 받기
+    val createdAt: String
 )
