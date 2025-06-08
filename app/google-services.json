@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "133565645595",
-    "project_id": "mainoperexceptemotion",
-    "storage_bucket": "mainoperexceptemotion.firebasestorage.app"
+    "project_number": "947322426881",
+    "project_id": "mainoperfreemode",
+    "storage_bucket": "mainoperfreemode.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:133565645595:android:5bb089757eadfecff449be",
+        "mobilesdk_app_id": "1:947322426881:android:503368e4dd61fbaae75200",
         "android_client_info": {
           "package_name": "com.example.main_oper_except_emotion"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDfCXCPKTKlFV_PnKVxagUf5Kv1Av9Tf3o"
+          "current_key": "AIzaSyBzvqmJROlsaiGx4z3L8t86Cp0n5n5tZqE"
         }
       ],
       "services": {
